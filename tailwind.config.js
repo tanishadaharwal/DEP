@@ -4,6 +4,11 @@ module.exports = {
   theme: {
     extend: {},
   },
+  extend: {
+    fontFamily : {
+      signature : ["Great Vibes"],
+    }
+  },
   plugins: [],
 }
 

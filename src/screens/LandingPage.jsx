@@ -6,7 +6,7 @@ export default function LandingPage() {
   return (
     <SafeAreaView className="bg-white h-full">
         <View className="items-center mt-20 p-5 bg-white">
-            <Text class="text-xl text-purple-600">LandingPage</Text>
+            <Text className="text-3xl text-purple-600">Landing  Page</Text>
         </View>
       
     </SafeAreaView>
