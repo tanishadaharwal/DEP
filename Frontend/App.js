@@ -7,7 +7,6 @@ import "@expo/metro-runtime";
 import LandingPage from "./src/screens/LandingPage";
 import Register from './src/screens/Register';
 import Login from './src/screens/Login';
-import HomePage from './src/screens/HomePage';
 //Importing all screens
 export default function App() {
 
@@ -19,7 +18,6 @@ export default function App() {
         screenOptions={{
           headerShown: false
         }}>
-            <Stack.Screen name="homePage" component={HomePage}></Stack.Screen>
             <Stack.Screen name="landingPage" component={LandingPage}></Stack.Screen>
             <Stack.Screen name="register" component={Register}></Stack.Screen>
             <Stack.Screen name="login" component={Login}></Stack.Screen>
