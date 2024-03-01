@@ -6,7 +6,7 @@ module.exports = {
   },
   extend: {
     fontFamily : {
-      signature : ["Great Vibes"],
+      Musketeer: ["Pixel-Musketeer"]
     }
   },
   plugins: [],
