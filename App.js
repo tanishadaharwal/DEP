@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppProvider } from './AppContext';
 
 import LandingPage from "./src/screens/LandingPage";
-
+import ProfilePage from "./src/screens/ProfilePage";
 //Importing all screens
 export default function App() {
 
@@ -17,6 +17,7 @@ export default function App() {
         screenOptions={{
           headerShown: false
         }}>
+            <Stack.Screen name="profilePage" component={ProfilePage}></Stack.Screen>
             <Stack.Screen name="landingPage" component={LandingPage}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
