@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AuthAnimation from '../component/AuthAnimation';
 
 export default function Login() {
 
@@ -22,7 +23,8 @@ export default function Login() {
     <SafeAreaView className="flex-1 bg-white">
       <View className="items-center justify-center h-full">
         <View className="w-4/5">
-          <Text className="text-4xl font-bold text-center mb-8">Login to App Name</Text>
+          <View className="p-3"><AuthAnimation /></View>
+          <Text className="text-2xl font-semibold text-center text-[#0d64e5] mt-24 mb-8">Login to App Name</Text>
 
           <TextInput
             className="border border-gray-400 rounded-md px-4 py-2 mb-4"
@@ -41,9 +43,24 @@ export default function Login() {
             onChangeText={setPassword}
           />
 
-         
+          <View className="flex-row">
+            <View className="p-2"><TextInput
+            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
+            <View className="p-2"><TextInput
+            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
+            <View className="p-2"><TextInput
+            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
+            <View className="p-2"><TextInput
+            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
+            <View className="p-2"><TextInput
+            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
+            <View className="p-2"><TextInput
+            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
+          </View>
+
+
           <TouchableOpacity
-            className="bg-blue-500 py-3 rounded-md items-center"
+            className="bg-blue-500 py-3 rounded-md items-center mt-3"
             onPress={handleLogin}
           >
             <Text className="text-white font-semibold text-lg">Login</Text>
