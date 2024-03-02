@@ -6,7 +6,7 @@ export default ProfilePage=()=>{
     const user= {
         name:"Vrinda",
         entryNumber:"2021MCB1223",
-        profilePhoto:require('../../assets/profileimg.jpg'),
+        profilePhoto:require('../../assets/booksLogo.png'),
         lostAndFoundLogs:[
             {id:1, item: "Lost Wallet", date: "2024-02-28"},
             { id: 2, item: "Found Keys", date: "2024-02-27" }

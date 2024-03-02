@@ -19,7 +19,7 @@ export default function Register() {
     console.log("email", email);
 
     try {
-      const response = await axios.post('http://localhost:3000/client/create-client', {
+      const response = await axios.post('http://172.21.68.229:3000/client/create-client', {
         name,
         email,
         isAdmin: false, // Assuming isAdmin is initially false for regular users
