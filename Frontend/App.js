@@ -6,6 +6,8 @@ import { AppProvider } from './AppContext';
 import "@expo/metro-runtime";
 import LandingPage from "./src/screens/LandingPage";
 import ProfilePage from "./src/screens/ProfilePage";
+import Login from "./src/screens/Login"
+import Register from "./src/screens/Register"
 //Importing all screens
 export default function App() {
 
