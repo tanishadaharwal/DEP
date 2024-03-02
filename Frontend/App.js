@@ -9,6 +9,8 @@ import ProfilePage from "./src/screens/ProfilePage";
 import QueryForm from "./src/screens/QueryForm";
 import Register from "./src/screens/Register";
 import Login from "./src/screens/Login";
+import LostAndFound from "./src/screens/LostFound";
+
 
 //Importing all screens
 export default function App() {
@@ -22,6 +24,7 @@ export default function App() {
           headerShown: false
         }}
       >
+        <Stack.Screen name="lostFoundForm" component={LostAndFound} />
         <Stack.Screen name="landingPage" component={LandingPage} />
         <Stack.Screen name="profilePage" component={ProfilePage} />
         <Stack.Screen name="queryForm" component={QueryForm} />
