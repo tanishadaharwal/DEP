@@ -1,20 +1,39 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import axios from 'axios';
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleRegister = () => {
-    if (email.endsWith('iitrpr.ac.in')) {
-      // Proceed with registration logic
-      // For demonstration purposes, let's show an alert
-      Alert.alert('Registration Successful', 'Thank you for registering!');
-    } else {
-      Alert.alert('Invalid Email', 'Please use a valid institute email id');
+  const handleRegister = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert('Passwords do not match', 'Please make sure your passwords match.');
+      return;
+    }
+    console.log("name", name);
+    console.log("email", email);
+
+    try {
+      const response = await axios.post('http://localhost:3000/client/create-client', {
+        name,
+        email,
+        isAdmin: false, // Assuming isAdmin is initially false for regular users
+      });
+      
+      if (response.status == 201) {
+        Alert.alert('Registration Successful', 'Thank you for registering!');
+        // You might want to navigate the user to another screen upon successful registration
+      } else {
+        console.log(response.status)
+        Alert.alert('Registration Failed', 'Failed to register. Please try again later.');
+      }
+    } catch (error) {
+      
+      console.error('Error during registration:', error);
+      Alert.alert('Registration Error', 'An error occurred during registration. Please try again later.');
     }
   };
 
