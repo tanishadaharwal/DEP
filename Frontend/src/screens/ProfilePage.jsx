@@ -4,7 +4,7 @@ import React from 'react'
 
 export default ProfilePage=()=>{
     const user= {
-        name:"Vrinda Dua",
+        name:"Vrinda",
         entryNumber:"2021MCB1223",
         profilePhoto:require('../../assets/profileimg.jpg'),
         lostAndFoundLogs:[

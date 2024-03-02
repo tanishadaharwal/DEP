@@ -5,10 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppProvider } from './AppContext';
 import "@expo/metro-runtime";
 import LandingPage from "./src/screens/LandingPage";
-import Register from './src/screens/Register';
-import Login from './src/screens/Login';
 import ProfilePage from "./src/screens/ProfilePage";
-
 //Importing all screens
 export default function App() {
 
