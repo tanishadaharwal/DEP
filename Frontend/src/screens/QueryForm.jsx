@@ -1,88 +1,58 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet,Image, KeyboardAvoidingView,Keyboard } from 'react-native';
+import { View, Text, TextInput, Button, Image, KeyboardAvoidingView, Keyboard, SafeAreaView, TouchableOpacity } from 'react-native';
+import QueryAnimation from "./../component/QueryAnimation";
 
 const QueryForm = () => {
-  const [query, setQuery] = useState('');
-  const [submittedQuery, setSubmittedQuery] = useState('');
+    const [query, setQuery] = useState('');
+    const [submittedQuery, setSubmittedQuery] = useState('');
 
-  const handleSubmit = () => {
+    const handleSubmit = () => {
         Keyboard.dismiss();
         setSubmittedQuery(query);
+    };
 
-      };
-    
-  return (
-    <KeyboardAvoidingView behavious="padding" style={styles.container}>
-    <View style={styles.container}>
-        <Image source={require("../../assets/query.png")} style={styles.logo} />
-        {/* <Image source={require("../../assets/logo2.png")} style={styles.logo} /> */}
-      <Text style={styles.title}>Submit Query</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={txt => setQuery(txt)}
-        value={query}
-        placeholder="Enter your query"
-        multiline
-      />
-      <Button title="Submit"  onPress={handleSubmit} style={styles.btn} />
-      {submittedQuery !== '' && (
-        <View style={styles.submittedQueryContainer}>
-          <Text style={styles.submittedQueryTitle}>Submitted Query:</Text>
-          <Text style={styles.submittedQuery}>{submittedQuery}</Text>
-        </View>
-      )}
-    </View>
-    </KeyboardAvoidingView>
-  );
+    return (
+        <SafeAreaView className="bg-blue-100 h-full">
+            <KeyboardAvoidingView >
+                <View className="items-center mt-16 p-5">
+                    <View className="h-40 w-40 mt-20 mb-8 mx-2">
+                        <QueryAnimation />
+                    </View>
+                    <View>
+                        <Text className="text-2xl font-bold text-[#407bff] mt-6">Submit Query</Text>
+                    </View>
+                    <View>
+                        <TextInput
+                            className="border border-gray-400 bg-white rounded-md h-32 w-72 items-center px-4 py-2 m-4 file:mb-4"
+                            onChangeText={txt => setQuery(txt)}
+                            value={query}
+                            placeholder="Enter your query"
+                            multiline
+                        />
+                    </View>
+                    <View>
+                        <View>
+                        <TouchableOpacity
+                            className="bg-[#407bff] p-3 rounded-md items-center mt-2"
+                            onPress={handleSubmit}
+                        >
+                            <Text className="text-white font-semibold text-lg">Submit</Text>
+                        </TouchableOpacity>
+                        </View>
+                        <View>
+                        {submittedQuery !== '' && (
+                            <View className="border-2 border-gray-300 p-4 mt-4 rounded-md bg-slate-100">
+                                <Text className="font-light text-center mb-2 text-black">SUBMITTED QUERY:</Text>
+                                <Text className="text-md text-center">{submittedQuery}</Text>
+                            </View>
+                        )}
+                        </View>
+                    </View>
+                </View>
+
+            </KeyboardAvoidingView>
+        </SafeAreaView>
+    );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#EAF6FF', 
-    justifyContent: 'center',
-    padding: 15,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#0d64e5', 
-    marginBottom: 20,
-  },
-  btn:{
-    marginBottom:30
-  },
-  logo: {
-    height: 70,
-    width: 70,
-    marginBottom: 20,
-  },
-  input: {
-    width: 300,
-    height: 100,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 12,
-    backgroundColor: 'white',
-  },
-  
-  submittedQueryContainer: {
-    marginTop: 20,
-    borderWidth: 2,
-    borderColor: 'lightgray',
-    padding: 10,
-    borderRadius: 5,
-  },
-  submittedQueryTitle: {
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  submittedQuery: {
-    fontSize: 16,
-  },
-});
 
 export default QueryForm;

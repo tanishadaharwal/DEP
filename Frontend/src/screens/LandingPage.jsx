@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from 'react'
 
 export default function LandingPage() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -13,18 +13,20 @@ export default function LandingPage() {
         <Text className="font-semibold text-xl p-3 font-Musketeer text-[#0d64e5]">Streamlined Library Solutions</Text>
         <View className="border-t-2 p-3 border-neutral-100">
           <Text className=" font-extralight text-xs">An all-in-one solution to simplify the library experience</Text>
-          <View><Button onPress={() => {
-                        
-                        navigation.navigate("register");
-                    }} className="text-black" title="Register" color="#82E0AA"></Button></View>
-                  
-        </View>
-        <View><Button onPress={() => {
-                        
-                        navigation.navigate("login");
-                    }} className="text-black" title="Register" color="#82E0AA"></Button></View>
-                  
+          <View className="mt-8">
+            <Button onPress={() => {
 
+              navigation.navigate("register");
+            }} className="text-black rounded-md" title="Register" color="#0976f1"></Button>
+          </View>
+
+
+          <View className="mt-6"><Button onPress={() => {
+
+            navigation.navigate("login");
+          }} className="text-black rounded-md" title="Login" color="#0976f1"></Button></View>
+
+        </View>
       </View>
 
     </SafeAreaView>

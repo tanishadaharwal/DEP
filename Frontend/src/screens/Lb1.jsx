@@ -1,4 +1,4 @@
-import { View, Text,Image ,TouchableOpacity} from 'react-native'
+import { View, Text,Image ,TouchableOpacity, SafeAreaView} from 'react-native'
 import React,{useState} from 'react'
 import { useNavigation } from "@react-navigation/native";
 
@@ -6,13 +6,14 @@ export default function Lb1() {
     const navigation = useNavigation();
 
   return (
+    <SafeAreaView className="h-full">
    <View className='w-screen h-screen bg-zinc-100'>
 
-        <View className='w-full bg-black h-[10%] items-center p-5 flex-row '>
+        <View className='w-full bg-blue-900 h-[11.5%] items-center p-5 flex-row pt-11'>
         <TouchableOpacity onPress={() => navigation.navigate('libraryPage')}>
     <Image source={require('../../assets/booksLogo.png')} className='w-10 h-10 m-3' />
     </TouchableOpacity>
-      <Text className='  text-white font-extrabold bg-black text-2xl '>LB 1</Text>
+      <Text className='  text-white font-extrabold text-2xl '>LB 1</Text>
         </View>
 
         <View className='w-[90%] self-center h-[15%] flex-row border-b-2 p-2 border-gray-400 shadow-sm shadow-black bg-white'>
@@ -99,6 +100,7 @@ export default function Lb1() {
         </View>
 
    </View>
+   </SafeAreaView>
   )
 }
 
