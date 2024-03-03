@@ -48,8 +48,8 @@ export default function App() {
 
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="libraryPage" component={LibraryPage}></Stack.Screen>
-        <Stack.Screen name="readingRoom" component={ReadingRoom}></Stack.Screen>
+       
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
