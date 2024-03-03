@@ -11,11 +11,11 @@ export default function LibraryPage() {
         },
         {
             name:'LB 1',
-            page:'lb',
+            page:'lb1',
         },
         {
             name:'Common Room',
-            page:'commonRoom',
+            page:'commonRoom1',
         }
     ]
 
@@ -29,12 +29,12 @@ export default function LibraryPage() {
             page:'discussionRoom',
         },
         {
-            name:'Lab',
-            page:'lab',
+            name:'Electronic Lab',
+            page:'electronicLab',
         },
         {
             name:'Common Room',
-            page:'commonRoom',
+            page:'commonRoom2',
         }
     ]
 
