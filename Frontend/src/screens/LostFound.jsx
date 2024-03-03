@@ -1,0 +1,208 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, Image, StyleSheet, KeyboardAvoidingView, TouchableOpacity,Platform, Keyboard} from 'react-native';
+import * as ImagePicker from 'expo-image-picker'; 
+import DateTimePicker from '@react-native-community/datetimepicker';
+import SvgLost from '../../Lost.js';
+
+
+const LostAndFound = () => {
+  const [image, setImage] = useState(null);
+  const [submittedImage, setSubmittedImage]=useState('');
+  const [location, setLocation] = useState('');
+  const [submittedLocation, setSubmittedLocation] = useState('');
+  const [time, setTime] = useState('');
+  const [description, setDescription] = useState('');
+  const [submittedDescription, setSubmittedDescription] = useState('');
+  const [showPicker, setShowPicker] = useState(false);
+  const [date, setDate] = useState(new Date());
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  const handleSubmit = () => {
+
+    Keyboard.dismiss();
+    setSubmittedDescription(description);
+    setSubmittedImage(image);
+    setSubmittedLocation(location);
+    const formattedTime = date.toLocaleString();
+    setTime(formattedTime);
+    console.log('Image:', image);
+    console.log('Location:', location);
+    console.log('Time:', time);
+    console.log('Description:', description);
+  };
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShowPicker(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showDatepicker = () => {
+    setShowPicker(true);
+  };
+
+  return (
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        {/* <ImageBackground
+        source={require('../../assets/lostfound.png')}
+        style={styles.backgroundImage}
+      > */}
+        <View style={styles.container}>
+        <View style={styles.svgContainer}>
+        <SvgLost height={100} width={80} />
+        </View>
+      <Text style={[styles.heading,styles.svgHeading]}>Lost and Found</Text>
+        <Button title="Pick an image from gallery" onPress={pickImage} />
+        {image && <Image source={{ uri: image }} style={styles.image} />}
+        <TextInput
+          style={styles.input}
+          placeholder="Location"
+          value={location}
+          onChangeText={text => setLocation(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Description"
+          multiline
+          value={description}
+          onChangeText={text => setDescription(text)}
+        />
+        <View>
+        <View style={styles.buttonContainer}>
+            <Button onPress={showDatepicker} title="Select Date" />
+        </View>
+        {/* {(
+            <View style={styles.submittedQueryContainer}>
+            <Text style={styles.submittedQueryTitle}>Submitted Query:</Text>
+            <Text style={styles.submittedQuery}>{submittedQuery}</Text>
+            </View>
+        )} */}
+          {showPicker && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode="date"
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+            />
+          )}
+        </View>
+        {/* <Button title="Submit" onPress={handleSubmit} color="#000000" buttonStyle={styles.btn}/> */}
+        <TouchableOpacity style={[styles.btn, styles.submitButton]} onPress={handleSubmit}>
+        <Text style={styles.btnText}>Submit</Text>
+    </TouchableOpacity>
+
+        { submittedDescription!='' && submittedLocation!='' &&(
+            <View style={styles.submittedContainer}>
+                <Text style={styles.submittedQueryTitle}> Submitted Details:</Text>
+                <Text style={styles.submittedQuery}> Location: {submittedLocation}</Text>
+                <Text style={styles.submittedQuery}> Description : {submittedDescription}</Text>
+                {/* <Text style={styles.submittedQuery}> ImageAttached : {submittedImage}</Text>*/}
+                {submittedImage && (
+    <Image source={{ uri: submittedImage }} style={styles.submittedImage} />
+  )}
+  <Text style={styles.submittedQuery}>Time: {time}</Text>
+            </View>
+        )}
+        </View>
+      {/* </View>
+      </ImageBackground> */}
+    </KeyboardAvoidingView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#EAF6FF',
+    padding: 20,
+  },
+  buttonContainer: {
+    marginBottom: 20,
+},
+submitButton: {
+    marginTop: 20,
+  },
+svgHeading: {
+    marginBottom: 20,
+  },
+  btn: {
+    backgroundColor: '#89CEFA',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    width: 80, 
+},
+btnText: {
+    color: '#000000',
+},
+svgContainer: {
+    padding: 10, 
+  },
+
+  image: {
+    width: 200, 
+    height: 200,
+    marginBottom: 10,
+  },
+//   backgroundImage: {
+//     flex: 1,
+//     width: '100%',
+//     height: '100%',
+//     resizeMode: 'cover', // or 'stretch' or 'contain'
+//   },
+//   overlay: {
+//     flex: 1,
+//     backgroundColor: 'rgba(0,0,0,0.5)', // Optional overlay to make text more readable
+//   },
+  heading: {
+    color: '#000000', 
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  submittedContainer:{
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: 'lightgray',
+    padding: 10,
+    borderRadius: 5,
+  },
+  submittedQueryTitle: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  submittedImage: {
+    width: 200,
+    height: 200,
+    marginBottom: 10,
+  },
+  submittedQuery: {
+    fontSize: 16,
+  },
+  input: {
+    width: 200,
+    height: 40,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+});
+
+export default LostAndFound;
