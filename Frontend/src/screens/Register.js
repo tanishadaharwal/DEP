@@ -19,11 +19,12 @@ export default function Register() {
     console.log("email", email);
 
     try {
-      const response = await axios.post('http://172.21.68.229:3000/client/create-client', {
+      const response = await axios.post('http://172.21.70.168:3000/client/create-client', {
         name,
         email,
         isAdmin: false, // Assuming isAdmin is initially false for regular users
       });
+      console.log(response.data);
       
       if (response.status == 201) {
         Alert.alert('Registration Successful', 'Thank you for registering!');
@@ -43,7 +44,7 @@ export default function Register() {
     <SafeAreaView className="flex-1 bg-white">
       <View className="items-center justify-center h-full">
         <View className="w-4/5">
-          <View className="p-2 mt-10"><AuthAnimation></AuthAnimation></View>
+          {/* <View className="p-2 mt-10"><AuthAnimation></AuthAnimation></View> */}
           <Text className="text-2xl font-semibold text-[#0d64e5] text-center mt-24 mb-8">Register to App Name</Text>
 
           <TextInput
