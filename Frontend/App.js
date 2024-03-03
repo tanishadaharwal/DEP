@@ -32,10 +32,10 @@ export default function App() {
           headerShown: false,
         }}
       >
-        
         <Stack.Screen name="register" component={Register} />
-        <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="homePage" component={HomePage} />
+        <Stack.Screen name="libraryPage" component={LibraryPage} />
+        <Stack.Screen name="queryForm" component={QueryForm} />
+        <Stack.Screen name="profilePage" component={ProfilePage} />
         <Stack.Screen name="landingPage" component={LandingPage} />
         <Stack.Screen name="commonRoom2" component={CommonRoom2} />
         <Stack.Screen name="lb1" component={Lb1} />
@@ -47,9 +47,12 @@ export default function App() {
         <Stack.Screen name="discussionRoom" component={DiscussionRoom} />
         <Stack.Screen name="electronicLab" component={ElectronicLab} />
         <Stack.Screen name="studyRoom" component={StudyRoom} />
+        <Stack.Screen name="commonRoom2" component={CommonRoom2} />
+
+        <Stack.Screen name="homePage" component={HomePage} />
+        <Stack.Screen name="login" component={Login} />
+       
         
-        
-        <Stack.Screen name="readingRoom" component={ReadingRoom}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
