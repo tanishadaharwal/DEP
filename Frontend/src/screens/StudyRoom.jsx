@@ -108,9 +108,9 @@ export default function StudyRoom() {
                     x2="100%"
                     y2="0%"
                   >
-                    <Stop offset="0%" stopColor="cyan" />
-                    <Stop offset="50%" stopColor="orange" />
-                    <Stop offset="100%" stopColor="red" />
+                    <Stop offset="0%" stopColor="#00416A" />
+                    <Stop offset="50%" stopColor="#007791"/>
+                    <Stop offset="100%" stopColor="#005A9C" />
                   </LinearGradient>
                 </Defs>
                 <Path
