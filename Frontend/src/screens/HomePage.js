@@ -17,7 +17,7 @@ export default function HomePage() {
                     <View className="border-t-2 p-3 border-neutral-100">
                         <Text className="font-light tracking-widest text-l pt-7 px-3 text-grey-30">SEAT STATUS :</Text>
                     </View>
-                    <View><Text className="font-semibold text-xl p-1 text-[#3772ff]">Occupied</Text></View>
+                    <View><Text className="font-semibold text-xl p-1 text-[##3772ff]">Occupied</Text></View>
                     <View className=" pb-3">
                         <Text className="font-light tracking-widest text-l pt-7 px-3 text-grey-30">SEAT OCCUPIED :</Text>
                     </View>
