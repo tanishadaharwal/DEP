@@ -15,7 +15,7 @@ export default function StudyRoom() {
   return (
     <View className="w-screen h-screen bg-zinc-100">
       <View className="w-full bg-black h-[10%] items-center p-5 flex-row ">
-        <TouchableOpacity onPress={() => navigation.navigate("libraryPage")}>
+        <TouchableOpacity onPress={() => navigation.navigate("homePage")}>
           <Image
             source={require("../../assets/booksLogo.png")}
             className="w-10 h-10 m-3"

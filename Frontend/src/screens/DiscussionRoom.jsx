@@ -10,7 +10,7 @@ export default function DiscussionRoom() {
   return (
     <View className='h-screen w-screen bg-zinc-50'>
          <View className="w-full bg-black h-[10%] items-center p-5 flex-row ">
-        <TouchableOpacity onPress={() => navigation.navigate("libraryPage")}>
+        <TouchableOpacity onPress={() => navigation.navigate("homePage")}>
           <Image
             source={require("../../assets/booksLogo.png")}
             className="w-10 h-10 m-3"
