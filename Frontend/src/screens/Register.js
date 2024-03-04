@@ -44,8 +44,8 @@ export default function Register() {
     <SafeAreaView className="flex-1 bg-white">
       <View className="items-center justify-center h-full">
         <View className="w-4/5">
-          {/* <View className="p-2 mt-10"><AuthAnimation></AuthAnimation></View> */}
-          <Text className="text-2xl font-semibold text-[#0d64e5] text-center mt-24 mb-8">Register to App Name</Text>
+          <View className="p-2 mt-10"><AuthAnimation></AuthAnimation></View>
+          <Text className="text-2xl font-semibold text-[#0d64e5] text-center mt-24 mb-8">Register to LibConnect</Text>
 
           <TextInput
             className="border border-gray-400 rounded-md px-4 py-2 mb-4"
