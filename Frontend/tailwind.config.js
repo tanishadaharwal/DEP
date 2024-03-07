@@ -4,11 +4,7 @@ module.exports = {
   theme: {
     extend: {},
   },
-  extend: {
-    fontFamily : {
-      Musketeer: ["Pixel-Musketeer"]
-    }
-  },
+ 
   plugins: [],
 }
 

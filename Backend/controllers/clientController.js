@@ -2,6 +2,17 @@
 const { Client } = require("../models/Client");
 const nodemailer = require('nodemailer');
 
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp-mail.outlook.com', // Outlook SMTP server
+  port: 587, // Port for secure TLS/STARTTLS
+  secure: false, // Set to true if you are using port 465 (SSL)
+  auth: {
+    user: 'dep2k24@outlook.com', // Your Outlook email address
+    pass: 'G1dep2024', // Your Outlook password
+  },
+});
+
 const createClient = async (req, res) => {
   try {
       // Extract client data from the request body
@@ -36,8 +47,84 @@ const createClient = async (req, res) => {
   }
 };
 
+const generateOtp = () => {
+  const otp = Math.floor(100000 + Math.random() * 900000);
+  return otp.toString();
+};
+
+const otpPairs = {};
+
+const sendOtp = async (req, res) => {
+  
+  const {email} = req.body;
+  console.log(email);
+  try {
+
+    // Send the email
+    
+    const otp = generateOtp();
+    const mailOptions = {
+      from: 'dep2k24@outlook.com', // Sender's email address
+      to: email, // Recipient's email address
+      subject: 'OTP for login to LibConnect', // Email subject
+      text: `
+      Hi! \nWelcome to LibConnect. \nYour OTP is: ${otp}. Please use this OTP to verify your email address. The OTP is valid for 10 minutes. \n\n Regards, \n Team LibConnect`, // Email content in plain text
+    };
+
+    await transporter.sendMail(mailOptions);
+    otpPairs[email] = otp;
+    
+    console.log('OTP sent:');
+
+    setInterval(()=>{
+        delete otpPairs[email];
+    },600000)
+    res.status(200).json({ message: "OTP sent successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+    console.error('Error sending OTP:', error);
+    throw error;
+  }
+};
+
+const verifyOtp = (email, userOtp) => {
+  const storedOtp = otpPairs[email];
+console.log("user: ", userOtp);
+console.log("stored : ", storedOtp);
+  if (!storedOtp) {
+    throw new Error('OTP not found or expired.');
+  }
+
+  if (userOtp === storedOtp) {
+
+    console.log('OTP verified');
+    delete otpPairs[email]; 
+    return true;
+  } else {
+    // Invalid OTP
+    console.log('Invalid OTP');
+    return false;
+  }
+};
+const verifyOtpMail = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const otp = req.body.otp;
+
+    const isVerified = verifyOtp(email, otp);
+
+    if (isVerified) {
+      res.status(200).send('OTP verified');
+    } else {
+      res.status(400).send('Invalid OTP');
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
   module.exports = {
-    createClient,
+    createClient, sendOtp, verifyOtpMail
     
  };
  

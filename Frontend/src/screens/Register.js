@@ -3,13 +3,13 @@ import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
 import AuthAnimation from "../component/AuthAnimation";
-
+import { useNavigation } from "@react-navigation/native";
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
+  const navigation = useNavigation();
   const handleRegister = async () => {
     if (password !== confirmPassword) {
       Alert.alert('Passwords do not match', 'Please make sure your passwords match.');
@@ -19,7 +19,7 @@ export default function Register() {
     console.log("email", email);
 
     try {
-      const response = await axios.post('http://172.21.70.168:3000/client/create-client', {
+      const response = await axios.post('http://192.168.42.119:3000/client/create-client', {
         name,
         email,
         isAdmin: false, // Assuming isAdmin is initially false for regular users
@@ -28,7 +28,10 @@ export default function Register() {
       
       if (response.status == 201) {
         Alert.alert('Registration Successful', 'Thank you for registering!');
-        // You might want to navigate the user to another screen upon successful registration
+        setTimeout(() => {
+          navigation.navigate("homePage");
+        }, 2000); 
+       
       } else {
         console.log(response.status)
         Alert.alert('Registration Failed', 'Failed to register. Please try again later.');

@@ -1,33 +1,94 @@
+
+
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AuthAnimation from '../component/AuthAnimation';
-
+import axios from "axios"
+import { useNavigation } from "@react-navigation/native";
 export default function Login() {
-
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [otp, setOtp] = useState(['', '', '', '', '', '']);
 
+  
+  const handleSendOtp = async () => {
+    console.log("email", email);
 
-  const handleLogin = () => {
-    if (email.endsWith('iitrpr.ac.in')) {
-      // Proceed with registration logic
-      // For demonstration purposes, let's show an alert
-      Alert.alert('Login Successful', 'Thank you for registering!');
-    } else {
-      Alert.alert('Invalid Email', 'Please use a valid institute email id');
+    try {
+      const response = await axios.post('http://192.168.42.119:3000/client/send-otp', {
+        email,
+        // Assuming isAdmin is initially false for regular users
+      });
+      console.log(response.status);
+      
+      if (response.status === 200) {
+        Alert.alert('OTP sent', 'Please check your inbox/spam folder');
+       
+      } else {
+        console.log(response.status)
+        Alert.alert('Process failed', 'Please try again later.');
+      }
+    } catch (error) {
+      
+      console.error('Error during login:', error);
+      Alert.alert('Error during login', 'Please try again later.');
     }
   };
 
+  const handleVerifyOtp = async () => {
+    console.log("email", email);
+    string_otp = otp.join('');
+    console.log("otp : ", string_otp);
+    try {
+      const response = await axios.post('http://192.168.42.119:3000/client/verify-otp', {
+        email, otp : string_otp
+        // Assuming isAdmin is initially false for regular users
+      });
+      console.log(response.data);
+      
+      if (response.status == 200) {
+        Alert.alert('Verification complete', 'You are logged in');
+        setTimeout(() => {
+          navigation.navigate("homePage");
+        }, 1000); 
+       
+      } else {
+        console.log(response.status)
+        Alert.alert('Wrong otp', 'Please try again.');
+      }
+    } catch (error) {
+      
+      console.error('Error during login:', error);
+      Alert.alert('Error during login', 'Please try again later.');
+    }
+  
+
+  };
+
+  const handleOtpChange = (index, value) => {
+    if (!isNaN(value) || value === '') {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+      if (index < 5 && value !== '') {
+        TextInput[`box${index + 1}`].focus();
+      }
+    }
+  };
+
+
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <View className="items-center justify-center h-full">
-        <View className="w-4/5">
-          <View className="p-3"><AuthAnimation /></View>
-          <Text className="text-2xl font-semibold text-center text-[#0d64e5] mt-24 mb-8">Login to App Name</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+        <View style={{ width: '80%' }}>
+          <View style={{ padding: 3 }}>
+            <AuthAnimation />
+          </View>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', color: '#0d64e5', marginTop: 150, marginBottom: 18 }}>Login to LibConnect</Text>
 
           <TextInput
-            className="border border-gray-400 rounded-md px-4 py-2 mb-4"
+            style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, marginBottom: 16}}
             placeholder="Email"
             keyboardType="email-address"
             autoCapitalize="none"
@@ -35,35 +96,33 @@ export default function Login() {
             onChangeText={setEmail}
           />
 
-          <TextInput
-            className="border border-gray-400 rounded-md px-4 py-2 mb-4"
-            placeholder="Password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-          />
+          <TouchableOpacity
+            style={{ backgroundColor: '#0976f1', paddingVertical: 12, borderRadius: 10, marginBottom: 10, alignItems: 'center' }}
+            onPress={handleSendOtp}
+          >
+            <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Send OTP</Text>
+          </TouchableOpacity>
 
-          <View className="flex-row">
-            <View className="p-2"><TextInput
-            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
-            <View className="p-2"><TextInput
-            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
-            <View className="p-2"><TextInput
-            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
-            <View className="p-2"><TextInput
-            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
-            <View className="p-2"><TextInput
-            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
-            <View className="p-2"><TextInput
-            className="border border-gray-400 rounded-md px-2 py-2 mb-4 w-9 text-center" placeholder="X"/></View>
+          <View style={{ flexDirection: 'row' , marginLeft : 28}}>
+            {[...Array(6)].map((_, index) => (
+              <TextInput
+                key={index}
+                style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, marginBottom: 10, width: 40, textAlign: 'center', marginRight: 5 }}
+                keyboardType="numeric"
+                maxLength={1}
+                value={otp[index]}
+                onChangeText={(value) => handleOtpChange(index, value)}
+                ref={(input) => (TextInput[`box${index}`] = input)}
+                onSubmitEditing={() => handleVerifyOtp()}
+              />
+            ))}
           </View>
 
-
           <TouchableOpacity
-            className="bg-blue-500 py-3 rounded-md items-center mt-3"
-            onPress={handleLogin}
+            style={{ backgroundColor: '#0976f1', paddingVertical: 12, borderRadius: 10, marginBottom: 10, alignItems: 'center' }}
+            onPress={() => handleVerifyOtp()}
           >
-            <Text className="text-white font-semibold text-lg">Login</Text>
+            <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Verify OTP</Text>
           </TouchableOpacity>
         </View>
       </View>

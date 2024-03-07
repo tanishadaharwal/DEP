@@ -25,7 +25,7 @@ db.once('open', () => {
 app.use('/client',ClientData.routes);
 
 app.get('/', (req, res) => {
-  res.send('Welcome to GDSC Portal');
+  res.send('Welcome to LibConnect');
 });
  
 const port = process.env.PORT || 3000; // Use the environment variable for the port or default to 3000
