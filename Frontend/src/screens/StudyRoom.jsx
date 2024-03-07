@@ -14,11 +14,16 @@ export default function StudyRoom() {
   const navigation = useNavigation();
   return (
     <View className="w-screen h-screen bg-zinc-100">
-      <View className='w-full bg-blue-900 h-[13.5%] items-center p-5 flex-row pt-11'>
-        <TouchableOpacity onPress={() => navigation.navigate('libraryPage')}>
-    <Image source={require('../../assets/booksLogo.png')} className='w-10 h-10 m-3' />
-    </TouchableOpacity>
-      <Text className='  text-white font-extrabold text-2xl '>Study Room</Text>
+      <View className="w-full bg-black h-[10%] items-center p-5 flex-row ">
+        <TouchableOpacity onPress={() => navigation.navigate("homePage")}>
+          <Image
+            source={require("../../assets/booksLogo.png")}
+            className="w-10 h-10 m-3"
+          />
+        </TouchableOpacity>
+        <Text className="  text-white font-extrabold bg-black text-2xl ">
+          STUDY ROOM
+        </Text>
       </View>
 
       <View className="w-[100%] h-[90%] items-center flex-row">

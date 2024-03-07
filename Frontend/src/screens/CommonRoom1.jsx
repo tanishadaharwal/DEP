@@ -75,8 +75,9 @@ export default function CommonRoom1() {
         </View>
       </View>
     </View>
-  );
+  )
 }
+
 
 const Chair = () => {
   const [pressed, setPressed] = useState(false);
@@ -87,6 +88,7 @@ const Chair = () => {
       className={`w-full  aspect-square rounded-full m-auto shadow-2xl shadow-white ${
         pressed ? "bg-gray-800" : "bg-gray-300"
       }`}
-    />
-  );
+    />
+  );
 };
+

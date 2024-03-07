@@ -9,12 +9,18 @@ export default function ElectronicLab() {
 
   return (
     <View className='w-screen h-screen bg-zinc-50'>
-       <View className='w-full bg-blue-900 h-[12.5%] items-center p-5 flex-row pt-11'>
-        <TouchableOpacity onPress={() => navigation.navigate('libraryPage')}>
-    <Image source={require('../../assets/booksLogo.png')} className='w-10 h-10 m-3' />
-    </TouchableOpacity>
-      <Text className='  text-white font-extrabold text-2xl '>Electronic Lab</Text>
-</View>
+        <View className="w-full bg-black h-[10%] items-center p-5 flex-row ">
+        <TouchableOpacity onPress={() => navigation.navigate("homePage")}>
+          <Image
+            source={require("../../assets/booksLogo.png")}
+            className="w-10 h-10 m-3"
+          />
+        </TouchableOpacity>
+        <Text className="  text-white font-extrabold bg-black text-2xl ">
+          ELECTRONIC LAB
+        </Text>
+      </View>
+
       <View className='w-screen h-[90%] flex-row gap-2'>
         <View className='basis-1/3 h-[100%]'>
             <View className='w-[100%] basis-1/3 bg-white border border-gray-300 shadow-sm shadow-black  justify-center'>

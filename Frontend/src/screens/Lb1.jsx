@@ -9,8 +9,8 @@ export default function Lb1() {
     <SafeAreaView className="h-full">
    <View className='w-screen h-screen bg-zinc-100'>
 
-        <View className='w-full bg-blue-900 h-[12.5%] items-center p-5 flex-row pt-11'>
-        <TouchableOpacity onPress={() => navigation.navigate('libraryPage')}>
+        <View className='w-full bg-blue-900 h-[11.5%] items-center p-5 flex-row pt-11'>
+        <TouchableOpacity onPress={() => navigation.navigate('homePage')}>
     <Image source={require('../../assets/booksLogo.png')} className='w-10 h-10 m-3' />
     </TouchableOpacity>
       <Text className='  text-white font-extrabold text-2xl '>LB 1</Text>

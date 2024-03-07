@@ -10,7 +10,7 @@ export default function ReadingRoom() {
   return (
     <SafeAreaView className='w-screen h-screen bg-gray-400 m-0 pb-0'>
         <View className='w-full bg-black h-[10%] items-center p-5 flex-row '>
-        <TouchableOpacity onPress={() => navigation.navigate('libraryPage')}>
+        <TouchableOpacity onPress={() => navigation.navigate('homePage')}>
     <Image source={require('../../assets/booksLogo.png')} className='w-10 h-10 m-3' />
     </TouchableOpacity>
       <Text className='  text-white font-extrabold bg-black text-2xl '>Reading Room</Text>
