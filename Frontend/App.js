@@ -31,6 +31,7 @@ export default function App() {
           headerShown: false,
         }}
       >
+        <Stack.Screen name="homePage" component={HomePage} />
         <Stack.Screen name="landingPage" component={LandingPage} />
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="studyRoom" component={StudyRoom} />
@@ -61,7 +62,7 @@ export default function App() {
 
 
 
-        <Stack.Screen name="homePage" component={HomePage} />
+        
 
 
       
