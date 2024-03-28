@@ -22,65 +22,80 @@ import ElectronicLab from "./src/screens/ElectronicLab";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from "react";
 //Importing all screens
+
 export default function App() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
+
   async function getData() {
-    const data = AsyncStorage.getItem('isLoggedIn');
+    const data = await AsyncStorage.getItem('isLoggedIn');
     console.log("logged in  ? : ", data);
     setisLoggedIn(data);
   }
+
   useEffect(() => {
     getData();
-  }, [])
-  const Stack = createNativeStackNavigator();
+  }, []);
+
+
+const LoginNav = () => {
+  const AppStack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        {isLoggedIn ? (
-          <Stack.Screen name="homePage" component={HomePage} />
-        ) : (
-          <Stack.Screen name="landingPage" component={LandingPage} />
-        )}
-        <Stack.Screen name="register" component={Register} />
-        <Stack.Screen name="studyRoom" component={StudyRoom} />
-
-
-
-
-        <Stack.Screen name="discussionRoom" component={DiscussionRoom} />
-        <Stack.Screen name="profilePage" component={ProfilePage} />
-
-        <Stack.Screen name="commonRoom1" component={CommonRoom1} />
-        <Stack.Screen name="lb1" component={Lb1} />
-        <Stack.Screen name="libraryPage" component={LibraryPage} />
-        <Stack.Screen name="login" component={Login} />
-
-        <Stack.Screen name="queryForm" component={QueryForm} />
-
-
-        <Stack.Screen name="commonRoom2" component={CommonRoom2} />
-        <Stack.Screen name="readingRoom" component={ReadingRoom} />
-       
-        
-        <Stack.Screen name="lostFoundForm" component={LostAndFound} />
-
-
-        <Stack.Screen name="electronicLab" component={ElectronicLab} />
-
-
-
-
-        
-
-
-      
-      </Stack.Navigator>
-      
-    </NavigationContainer>
-
+    <AppStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <AppStack.Screen name="landingPage" component={LandingPage} />
+      <AppStack.Screen name="register" component={Register} />
+      <AppStack.Screen name="login" component={Login} />  
+      <AppStack.Screen name="homePage" component={HomePage} />
+      <AppStack.Screen name="studyRoom" component={StudyRoom} />
+      <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
+      <AppStack.Screen name="profilePage" component={ProfilePage} />
+      <AppStack.Screen name="commonRoom1" component={CommonRoom1} />
+      <AppStack.Screen name="lb1" component={Lb1} />
+      <AppStack.Screen name="libraryPage" component={LibraryPage} />
+      <AppStack.Screen name="queryForm" component={QueryForm} />
+      <AppStack.Screen name="commonRoom2" component={CommonRoom2} />
+      <AppStack.Screen name="readingRoom" component={ReadingRoom} />
+      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
+      <AppStack.Screen name="electronicLab" component={ElectronicLab} />
+    </AppStack.Navigator>
   );
 }
+const AppNav = () => {
+  const AppStack = createNativeStackNavigator();
+  return (
+    <AppStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <AppStack.Screen name="homePage" component={HomePage} />
+      <AppStack.Screen name="studyRoom" component={StudyRoom} />
+      <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
+      <AppStack.Screen name="profilePage" component={ProfilePage} />
+      <AppStack.Screen name="commonRoom1" component={CommonRoom1} />
+      <AppStack.Screen name="lb1" component={Lb1} />
+      <AppStack.Screen name="libraryPage" component={LibraryPage} />
+      <AppStack.Screen name="queryForm" component={QueryForm} />
+      <AppStack.Screen name="commonRoom2" component={CommonRoom2} />
+      <AppStack.Screen name="readingRoom" component={ReadingRoom} />
+      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
+      <AppStack.Screen name="electronicLab" component={ElectronicLab} />
+      <AppStack.Screen name="landingPage" component={LandingPage} />
+      <AppStack.Screen name="register" component={Register} />
+      <AppStack.Screen name="login" component={Login} />  
+    </AppStack.Navigator>
+  );
+}
+  return (
+    <NavigationContainer>
+      {isLoggedIn ? <AppNav/> : <LoginNav/>}
+      </NavigationContainer>
+  );
+}
+
+     
+
+  

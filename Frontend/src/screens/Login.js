@@ -51,8 +51,9 @@ const [otp, setOtp] = useState(['', '', '', '', '', '']);
       
       if (response.status == 200) {
         Alert.alert('Verification complete', 'You are logged in');
-        AsyncStorage.setItem("token", response.data.data);
-        AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+        const token = await AsyncStorage.setItem("token", response.data.data);
+        const isLoggedIn = await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+        console.log(isLoggedIn);
         setTimeout(() => {
           navigation.navigate("homePage");
         }, 1000); 

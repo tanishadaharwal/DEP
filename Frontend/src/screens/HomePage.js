@@ -4,19 +4,32 @@ import React, { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from "axios"
 import { useNavigation } from "@react-navigation/native";
-import {useEffect, useState, React} from 'react'
+import {useEffect, useRef} from 'react'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get('window');
 
 export default function HomePage() {
-
+    const navigation = useNavigation();
     const [drawerOpen, setDrawerOpen] = useState(false);
-
+    const [seatStatus, setSeatStatus] = useState('');
+    const [seatOccupied, setSeatOccupied] = useState('');
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
-
+    const drawerAnimation = useRef(new Animated.Value(-width)).current;
+    const handleLogout = async () => {
+        try {
+            // Clear the token from AsyncStorage
+            await AsyncStorage.setItem("token", '');
+            await AsyncStorage.setItem("isLoggedIn", '');
+            // Navigate to the landing page or login page
+            navigation.navigate("landingPage");
+            // You can use useNavigation hook to navigate
+        } catch (error) {
+            console.error("Error logging out:", error);
+        }
+    };
     useEffect(() => {
         const getUserData = async () => {
             try {
@@ -25,6 +38,9 @@ export default function HomePage() {
                 console.log("tokennn : ", token);
                 // Make the API request to get user data using the token
                 const response = await axios.get(`http://192.168.137.1:3000/client/get-user-data/${token}`);
+                const { seatStatus, seatOccupied } = response.data;
+                setSeatStatus(seatStatus);
+                setSeatOccupied(seatOccupied);
 
 
                 // Log the response
@@ -36,7 +52,13 @@ export default function HomePage() {
 
         // Call the getUserData function when the component mounts
         getUserData();
-    }, []);
+
+        Animated.timing(drawerAnimation, {
+            toValue: drawerOpen ? 0 : -width,
+            duration: 300,
+            useNativeDriver: false
+        }).start();
+    }, [drawerOpen]);
     return (
         <>
             <SafeAreaView className="bg-white h-full">
@@ -60,6 +82,10 @@ export default function HomePage() {
                             <Text className="font-medium tracking-widest text-xl pt-[0.75] px-3 pl-[14.5] text-grey-30">Query Form</Text>
                         </TouchableOpacity>
                     </View>
+                    <TouchableOpacity onPress={handleLogout} className=" flex-row mt-96 pl-7 pt-2 mr-7 ml-7 pb-2 space-x-4 border-t-2 border-t-slate-400">
+                            <Ionicons name="log-out" size={28}></Ionicons>
+                            <Text className="font-medium tracking-widest text-xl text-grey-30">Logout</Text>
+                        </TouchableOpacity>
                 </View>
             )}
                 <TouchableOpacity className="absolute top-0 left-0 z-10 pt-3 pr-3 pb-3" onPress={toggleDrawer}>
@@ -74,11 +100,11 @@ export default function HomePage() {
                     <View className="border-t-2 p-3 border-neutral-100">
                         <Text className="font-light tracking-widest text-l pt-7 px-3 text-grey-30">SEAT STATUS :</Text>
                     </View>
-                    <View><Text className="font-semibold text-xl p-1 text-[#3772ff]">Occupied</Text></View>
+                    <View><Text className="font-semibold text-xl p-1 text-[#3772ff]">{seatStatus === true ? "Occupied" : "Not Occupied"}</Text></View>
                     <View className=" pb-3">
                         <Text className="font-light tracking-widest text-l pt-7 px-3 text-grey-30">SEAT OCCUPIED :</Text>
                     </View>
-                    <View><Text className="font-semibold text-xl p-1 text-[#83abfb]">1st Floor - GD Seat 4</Text></View>
+                    <View><Text className="font-semibold text-xl p-1 text-[#83abfb]">{seatStatus === true ? seatOccupied : "None"}</Text></View>
                 </View>
 
             </SafeAreaView>
