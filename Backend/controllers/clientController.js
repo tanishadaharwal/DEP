@@ -1,8 +1,10 @@
 'use strict';
 const { Client } = require("../models/Client");
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken')
 
 
+const JWT_SECRET = "dfgjdfi4564}3^!OK]:f56iuf{sd%*dg%$"
 const transporter = nodemailer.createTransport({
   host: 'smtp-mail.outlook.com', // Outlook SMTP server
   port: 587, // Port for secure TLS/STARTTLS
@@ -98,6 +100,7 @@ console.log("stored : ", storedOtp);
   if (userOtp === storedOtp) {
 
     console.log('OTP verified');
+    
     delete otpPairs[email]; 
     return true;
   } else {
@@ -114,7 +117,8 @@ const verifyOtpMail = async (req, res) => {
     const isVerified = verifyOtp(email, otp);
 
     if (isVerified) {
-      res.status(200).send('OTP verified');
+      const token = jwt.sign({email : email}, JWT_SECRET);
+      res.status(200).send({status:"ok", data:token});
     } else {
       res.status(400).send('Invalid OTP');
     }
@@ -123,8 +127,36 @@ const verifyOtpMail = async (req, res) => {
   }
 };
 
+
+const getUserData = async (req, res) => {
+  try {
+    // Get the JWT token from the URL parameter
+    const { token } = req.params;
+    console.log(token);
+    if (!token) {
+      return res.status(401).json({ error: "Authorization token not provided" });
+    }
+
+    // Decode the JWT token to get the user's email
+    const decodedToken = jwt.verify(token, JWT_SECRET);
+    const userEmail = decodedToken.email;
+
+    // Retrieve user data from the database using the email
+    const userData = await Client.findOne({ email: userEmail });
+
+    if (!userData) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Return the user data
+    res.status(200).json(userData);
+  } catch (error) {
+    console.error("Error retrieving user data:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
   module.exports = {
-    createClient, sendOtp, verifyOtpMail
+    createClient, sendOtp, verifyOtpMail, getUserData
     
  };
  

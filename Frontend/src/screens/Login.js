@@ -6,17 +6,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AuthAnimation from '../component/AuthAnimation';
 import axios from "axios"
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 export default function Login() {
-  const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+const navigation = useNavigation();
+const [email, setEmail] = useState('');
+const [otp, setOtp] = useState(['', '', '', '', '', '']);
 
   
   const handleSendOtp = async () => {
     console.log("email", email);
 
     try {
-      const response = await axios.post('http://192.168.42.119:3000/client/send-otp', {
+      const response = await axios.post('http://192.168.137.1:3000/client/send-otp', {
         email,
         // Assuming isAdmin is initially false for regular users
       });
@@ -28,6 +29,7 @@ export default function Login() {
       } else {
         console.log(response.status)
         Alert.alert('Process failed', 'Please try again later.');
+        
       }
     } catch (error) {
       
@@ -41,7 +43,7 @@ export default function Login() {
     string_otp = otp.join('');
     console.log("otp : ", string_otp);
     try {
-      const response = await axios.post('http://192.168.42.119:3000/client/verify-otp', {
+      const response = await axios.post('http://192.168.137.1:3000/client/verify-otp', {
         email, otp : string_otp
         // Assuming isAdmin is initially false for regular users
       });
@@ -49,6 +51,8 @@ export default function Login() {
       
       if (response.status == 200) {
         Alert.alert('Verification complete', 'You are logged in');
+        AsyncStorage.setItem("token", response.data.data);
+        AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
         setTimeout(() => {
           navigation.navigate("homePage");
         }, 1000); 
