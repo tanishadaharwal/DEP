@@ -19,10 +19,19 @@ import CommonRoom1 from "./src/screens/CommonRoom1";
 import DiscussionRoom from "./src/screens/DiscussionRoom";
 import HomePage from "./src/screens/HomePage";
 import ElectronicLab from "./src/screens/ElectronicLab";
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useState, useEffect } from "react";
 //Importing all screens
 export default function App() {
+  const [isLoggedIn, setisLoggedIn] = useState(false);
+  async function getData() {
+    const data = AsyncStorage.getItem('isLoggedIn');
+    console.log("logged in  ? : ", data);
+    setisLoggedIn(data);
+  }
+  useEffect(() => {
+    getData();
+  }, [])
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
@@ -31,7 +40,11 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="landingPage" component={LandingPage} />
+        {isLoggedIn ? (
+          <Stack.Screen name="homePage" component={HomePage} />
+        ) : (
+          <Stack.Screen name="landingPage" component={LandingPage} />
+        )}
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="studyRoom" component={StudyRoom} />
 
@@ -61,7 +74,7 @@ export default function App() {
 
 
 
-        <Stack.Screen name="homePage" component={HomePage} />
+        {/* <Stack.Screen name="homePage" component={HomePage} /> */}
 
 
       

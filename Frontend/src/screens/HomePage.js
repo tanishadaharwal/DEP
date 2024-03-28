@@ -1,10 +1,34 @@
 import { Image, View, Text, Button, SafeAreaView } from "react-native";
 import Animation from "../component/Animation";
 //import Lottie from "lottie-react";
+import axios from "axios"
+import { useNavigation } from "@react-navigation/native";
+import {useEffect, useState, React} from 'react'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import React from 'react'
 
 export default function HomePage() {
+
+    useEffect(() => {
+        const getUserData = async () => {
+            try {
+                // Get the token from AsyncStorage
+                const token = await AsyncStorage.getItem("token");
+                console.log("tokennn : ", token);
+                // Make the API request to get user data using the token
+                const response = await axios.get(`http://192.168.137.1:3000/client/get-user-data/${token}`);
+
+
+                // Log the response
+                console.log("User Data:", response.data);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        // Call the getUserData function when the component mounts
+        getUserData();
+    }, []);
     return (
         <>
             <SafeAreaView className="bg-white h-full">
