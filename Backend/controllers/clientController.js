@@ -155,6 +155,7 @@ const getUserData = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
   module.exports = {
     createClient, sendOtp, verifyOtpMail, getUserData
     
