@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Image, StyleSheet, KeyboardAvoidingView, TouchableOpacity,Platform, Keyboard} from 'react-native';
+import { View, Text, SafeAreaView, TextInput, Button, Image, StyleSheet, KeyboardAvoidingView, TouchableOpacity,Platform, Keyboard} from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SvgLost from '../../Lost.js';
@@ -53,6 +53,7 @@ const LostAndFound = () => {
   };
 
   return (
+    <SafeAreaView className="bg-blue-100 h-full">
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
         {/* <ImageBackground
         source={require('../../assets/lostfound.png')}
@@ -120,6 +121,7 @@ const LostAndFound = () => {
       {/* </View>
       </ImageBackground> */}
     </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

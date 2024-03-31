@@ -45,6 +45,7 @@ const LoginNav = () => {
         headerShown: false,
       }}
     >
+      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
       <AppStack.Screen name="landingPage" component={LandingPage} />
       <AppStack.Screen name="register" component={Register} />
       <AppStack.Screen name="login" component={Login} />  
@@ -58,7 +59,7 @@ const LoginNav = () => {
       <AppStack.Screen name="queryForm" component={QueryForm} />
       <AppStack.Screen name="commonRoom2" component={CommonRoom2} />
       <AppStack.Screen name="readingRoom" component={ReadingRoom} />
-      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
+      
       <AppStack.Screen name="electronicLab" component={ElectronicLab} />
     </AppStack.Navigator>
   );

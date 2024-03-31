@@ -37,7 +37,7 @@ export default function HomePage() {
                 const token = await AsyncStorage.getItem("token");
                 console.log("tokennn : ", token);
                 // Make the API request to get user data using the token
-                const response = await axios.get(`http://192.168.137.1:3000/client/get-user-data/${token}`);
+                const response = await axios.get(`http://192.168.43.120:3000/client/get-user-data/${token}`);
                 const { seatStatus, seatOccupied } = response.data;
                 setSeatStatus(seatStatus);
                 setSeatOccupied(seatOccupied);
@@ -65,19 +65,19 @@ export default function HomePage() {
             {drawerOpen && (
                 <View className="absolute top-0 bottom-0 w-[75%] bg-[#d5e2fd] border-r-2 border-r-[#d5e2fd] z-10">
                     <View className="pl-7 pt-32">
-                        <TouchableOpacity className="flex-row mr-7 pb-2 border-b-2 border-b-slate-400">
+                        <TouchableOpacity className="flex-row mr-7 pb-2 border-b-2 border-b-slate-400" onPress={()=> navigation.navigate("profilePage")}>
                             <Ionicons name="person" size={28}></Ionicons>
                             <Text className="font-medium tracking-widest text-xl pt-[0.75] px-3 text-grey-30">Profile</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity className="flex-row mr-7 mt-3 pb-2 border-b-2 border-b-slate-400">
+                        <TouchableOpacity className="flex-row mr-7 mt-3 pb-2 border-b-2 border-b-slate-400" onPress={()=> navigation.navigate("libraryPage")}>
                             <Ionicons name="book" size={28}></Ionicons>
                             <Text className="font-medium tracking-widest text-xl pt-[0.75] px-3 pl-[14.5] text-grey-30">Seats</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity className="flex-row mr-7 mt-3 pb-2 border-b-2 border-b-slate-400">
+                        <TouchableOpacity className="flex-row mr-7 mt-3 pb-2 border-b-2 border-b-slate-400" onPress={()=> navigation.navigate("lostFoundForm")}>
                             <Ionicons name="archive" size={28}></Ionicons>
                             <Text className="font-medium tracking-widest text-xl pt-[0.75] px-3 pl-[14.5] text-grey-30">Lost & Found</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity className="flex-row mr-7 mt-3 pb-2 border-b-2 border-b-slate-400">
+                        <TouchableOpacity className="flex-row mr-7 mt-3 pb-2 border-b-2 border-b-slate-400" onPress={()=> navigation.navigate("queryForm")}>
                             <Ionicons name="help-circle" size={28}></Ionicons>
                             <Text className="font-medium tracking-widest text-xl pt-[0.75] px-3 pl-[14.5] text-grey-30">Query Form</Text>
                         </TouchableOpacity>
