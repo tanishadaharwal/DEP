@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Image, KeyboardAvoidingView, Keyboard, SafeAreaView, TouchableOpacity } from 'react-native';
 import QueryAnimation from "./../component/QueryAnimation";
-
+import axios from 'axios'; 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const QueryForm = () => {
     const [query, setQuery] = useState('');
     const [submittedQuery, setSubmittedQuery] = useState('');
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         Keyboard.dismiss();
-        setSubmittedQuery(query);
+        
+        try {
+            // Get the token from AsyncStorage
+            const token = await AsyncStorage.getItem("token");
+            console.log("tokenn : ", token);
+            // Send the query data to the server
+            const response = await axios.post('http://192.168.137.1:3000/form/send-query', {
+                query: query,
+                emailToken: token, // Add the email if required
+            });
+            console.log(response.data);
+            console.log('Query submitted successfully');
+            setSubmittedQuery(query);
+        } catch (error) {
+            console.error('Error submitting query:', error);
+            // Handle error state if necessary
+        }
     };
 
     return (

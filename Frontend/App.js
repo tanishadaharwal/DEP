@@ -71,6 +71,8 @@ const AppNav = () => {
         headerShown: false,
       }}
     >
+      <AppStack.Screen name="queryForm" component={QueryForm} />
+      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
       <AppStack.Screen name="homePage" component={HomePage} />
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
@@ -78,10 +80,10 @@ const AppNav = () => {
       <AppStack.Screen name="commonRoom1" component={CommonRoom1} />
       <AppStack.Screen name="lb1" component={Lb1} />
       <AppStack.Screen name="libraryPage" component={LibraryPage} />
-      <AppStack.Screen name="queryForm" component={QueryForm} />
+      
       <AppStack.Screen name="commonRoom2" component={CommonRoom2} />
       <AppStack.Screen name="readingRoom" component={ReadingRoom} />
-      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
+      
       <AppStack.Screen name="electronicLab" component={ElectronicLab} />
       <AppStack.Screen name="landingPage" component={LandingPage} />
       <AppStack.Screen name="register" component={Register} />
