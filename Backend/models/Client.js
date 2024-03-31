@@ -7,31 +7,12 @@ const clientSchema = new mongoose.Schema({
   seatOccupied : String,
   isAdmin: Boolean,
   inLibrary : Boolean,
-  
-  
-});
-
-const LostandFoundSchema = new mongoose.Schema({
-
-  
+  queries : [String]
   
 });
 
-const QuerySchema = new mongoose.Schema({
- 
-  
-  
-});
 
-const SeatsSchema = new mongoose.Schema({
-  taken : Boolean,
-  floor : Number,
-  room : String,
-  area : String,
-  seatNumber : Number,
-  occupantEmail : String
-    
-});
+
 
 
 

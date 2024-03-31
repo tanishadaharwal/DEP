@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose'); // Import Mongoose
 const ClientData = require('./routes/ClientData');
+const FormData = require('./routes/FormData')
 const app = express();
 
 app.use(express.json());
@@ -23,6 +24,7 @@ db.once('open', () => {
 });
 
 app.use('/client',ClientData.routes);
+app.use('/form',FormData.routes);
 
 app.get('/', (req, res) => {
   res.send('Welcome to LibConnect');
