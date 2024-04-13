@@ -21,7 +21,9 @@ import HomePage from "./src/screens/HomePage";
 import ElectronicLab from "./src/screens/ElectronicLab";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from "react";
+import PermissionPage from "./src/screens/PermissionPage";
 //Importing all screens
+
 
 export default function App() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
@@ -44,12 +46,12 @@ const LoginNav = () => {
       screenOptions={{
         headerShown: false,
       }}
-    >
-      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
-      <AppStack.Screen name="landingPage" component={LandingPage} />
+      >
       <AppStack.Screen name="register" component={Register} />
-      <AppStack.Screen name="login" component={Login} />  
       <AppStack.Screen name="homePage" component={HomePage} />
+      <AppStack.Screen name="landingPage" component={LandingPage} />
+      <AppStack.Screen name="permissionPage" component={PermissionPage} />
+      <AppStack.Screen name="login" component={Login} />  
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
       <AppStack.Screen name="profilePage" component={ProfilePage} />
@@ -72,9 +74,9 @@ const AppNav = () => {
         headerShown: false,
       }}
     >
-      <AppStack.Screen name="queryForm" component={QueryForm} />
-      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
       <AppStack.Screen name="homePage" component={HomePage} />
+            <AppStack.Screen name="permissionPage" component={PermissionPage} />
+
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
       <AppStack.Screen name="profilePage" component={ProfilePage} />

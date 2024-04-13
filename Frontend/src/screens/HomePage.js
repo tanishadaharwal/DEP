@@ -6,6 +6,7 @@ import axios from "axios"
 import { useNavigation } from "@react-navigation/native";
 import {useEffect, useRef} from 'react'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {IP_ADDRESS} from '@env'
 
 const { width } = Dimensions.get('window');
 
@@ -37,7 +38,7 @@ export default function HomePage() {
                 const token = await AsyncStorage.getItem("token");
                 console.log("tokennn : ", token);
                 // Make the API request to get user data using the token
-                const response = await axios.get(`http://192.168.43.120:3000/client/get-user-data/${token}`);
+                const response = await axios.get(`http://${IP_ADDRESS}:3000/client/get-user-data/${token}`);
                 const { seatStatus, seatOccupied } = response.data;
                 setSeatStatus(seatStatus);
                 setSeatOccupied(seatOccupied);
@@ -69,7 +70,7 @@ export default function HomePage() {
                             <Ionicons name="person" size={28}></Ionicons>
                             <Text className="font-medium tracking-widest text-xl pt-[0.75] px-3 text-grey-30">Profile</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity className="flex-row mr-7 mt-3 pb-2 border-b-2 border-b-slate-400" onPress={()=> navigation.navigate("libraryPage")}>
+                        <TouchableOpacity className="flex-row mr-7 mt-3 pb-2 border-b-2 border-b-slate-400" onPress={() => navigation.navigate('libraryPage')}>
                             <Ionicons name="book" size={28}></Ionicons>
                             <Text className="font-medium tracking-widest text-xl pt-[0.75] px-3 pl-[14.5] text-grey-30">Seats</Text>
                         </TouchableOpacity>

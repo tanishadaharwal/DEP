@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, Image, KeyboardAvoidingView, Keyboard, S
 import QueryAnimation from "./../component/QueryAnimation";
 import axios from 'axios'; 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {IP_ADDRESS} from '@env'
 const QueryForm = () => {
     const [query, setQuery] = useState('');
     const [submittedQuery, setSubmittedQuery] = useState('');
@@ -15,7 +16,7 @@ const QueryForm = () => {
             const token = await AsyncStorage.getItem("token");
             console.log("tokenn : ", token);
             // Send the query data to the server
-            const response = await axios.post('http://192.168.137.1:3000/form/send-query', {
+            const response = await axios.post(`http://${IP_ADDRESS}:3000/form/send-query`, {
                 query: query,
                 emailToken: token, // Add the email if required
             });

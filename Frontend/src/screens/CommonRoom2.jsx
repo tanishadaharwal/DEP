@@ -159,6 +159,6 @@ const Chair = () => {
   const [pressed, setPressed] = useState(false)
 
   return (
-    <TouchableOpacity onPress={() => setPressed((prev) => !prev)} className={`h-full aspect-square rounded-full m-auto shadow-2xl shadow-white ${pressed ? 'bg-gray-800' : 'bg-gray-200'}`} />
+    <TouchableOpacity onPress={() => setPressed((prev) => !prev)} className={`w-full aspect-square rounded-full m-auto shadow-2xl shadow-white ${pressed ? 'bg-gray-800' : 'bg-gray-200'}`} />
   )
 }

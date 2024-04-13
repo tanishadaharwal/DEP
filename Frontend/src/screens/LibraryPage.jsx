@@ -1,6 +1,7 @@
 import { View, Text, SafeAreaView, TouchableOpacity, Pressable, Image } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import GeoLocationPage from "../component/GeoLocation";
 
 export default function LibraryPage() {
 
@@ -40,7 +41,7 @@ export default function LibraryPage() {
 
     return (
         <SafeAreaView className="flex items-center justify-around bg-[#d5ddfd] m-auto pt-5 h-full mb-0 w-screen text-center">
-
+            
             <View className='w-full items-center mt-4'>
                 <View className='w-[75%] bg-white opacity-80 p-3 border-2 rounded-full border-[#0d52e5] shadow-2xl shadow-white'>
                     <Text className='text-center text-[#0d52e5] font-extrabold text-2xl' >Ground Floor</Text>

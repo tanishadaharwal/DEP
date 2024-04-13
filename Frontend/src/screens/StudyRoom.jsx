@@ -9,6 +9,7 @@ import Svg, {
   LinearGradient,
   Stop,
 } from "react-native-svg";
+import { Chair } from "../component/Chair";
 
 export default function StudyRoom() {
   const navigation = useNavigation();
@@ -274,15 +275,15 @@ const Cubicle = () => {
   );
 };
 
-const Chair = () => {
-  const [pressed, setPressed] = useState(false);
+// const Chair = () => {
+//   const [pressed, setPressed] = useState(false);
 
-  return (
-    <TouchableOpacity
-      onPress={() => setPressed((prev) => !prev)}
-      className={`w-full  aspect-square rounded-full m-auto shadow-2xl shadow-white ${
-        pressed ? "bg-gray-800" : "bg-gray-300"
-      }`}
-    />
-  );
-};
+//   return (
+//     <TouchableOpacity
+//       onPress={() => setPressed((prev) => !prev)}
+//       className={`w-full  aspect-square rounded-full m-auto shadow-2xl shadow-white ${
+//         pressed ? "bg-gray-800" : "bg-gray-300"
+//       }`}
+//     />
+//   );
+// };
