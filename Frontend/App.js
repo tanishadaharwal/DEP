@@ -21,7 +21,9 @@ import HomePage from "./src/screens/HomePage";
 import ElectronicLab from "./src/screens/ElectronicLab";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from "react";
+import PermissionPage from "./src/screens/PermissionPage";
 //Importing all screens
+
 
 export default function App() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
@@ -44,14 +46,17 @@ const LoginNav = () => {
   const AppStack = createNativeStackNavigator();
   return (
     <AppStack.Navigator
+    
       screenOptions={{
         headerShown: false,
+        
       }}
-    >
-      <AppStack.Screen name="landingPage" component={LandingPage} />
+      >
       <AppStack.Screen name="register" component={Register} />
-      <AppStack.Screen name="login" component={Login} />  
       <AppStack.Screen name="homePage" component={HomePage} />
+      <AppStack.Screen name="landingPage" component={LandingPage} />
+      <AppStack.Screen name="login" component={Login} />  
+      {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
       <AppStack.Screen name="profilePage" component={ProfilePage} />
@@ -61,7 +66,7 @@ const LoginNav = () => {
       <AppStack.Screen name="queryForm" component={QueryForm} />
       <AppStack.Screen name="commonRoom2" component={CommonRoom2} />
       <AppStack.Screen name="readingRoom" component={ReadingRoom} />
-      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
+      
       <AppStack.Screen name="electronicLab" component={ElectronicLab} />
     </AppStack.Navigator>
   );
@@ -74,9 +79,9 @@ const AppNav = () => {
         headerShown: false,
       }}
     >
-      <AppStack.Screen name="queryForm" component={QueryForm} />
-      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
+      {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
       <AppStack.Screen name="homePage" component={HomePage} />
+
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
       <AppStack.Screen name="profilePage" component={ProfilePage} />

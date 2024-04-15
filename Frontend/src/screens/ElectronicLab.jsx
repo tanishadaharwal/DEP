@@ -1,11 +1,57 @@
 import { View, Text,TouchableOpacity,Image } from 'react-native'
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
-
+import { Chair } from '../component/Chair'
+import axios from 'axios'
+import {IP_ADDRESS} from '@env'
 
 export default function ElectronicLab() {
 
     const navigation=useNavigation()
+
+    const [seats, setSeats] = useState([]);
+
+    useEffect(() => {
+      const getSeatsStatus = async () => {
+        try{
+          const response = await axios.get(
+            `http://${IP_ADDRESS}:3000/seat/getSeatsByRoom/ElecLab`,
+
+          );
+          // console.log(response.data)
+          let sortedSeats=[];
+          sortedSeats = response.data.seats.sort((a, b) => {
+            return a.seatNumber - b.seatNumber;
+          });
+          console.log(sortedSeats);
+          setSeats(sortedSeats);
+        }catch(err){
+          console.log("error",err.message)
+        }
+
+        }
+      getSeatsStatus();
+    },[]);
+
+    const handleClick=async(seatId)=>{
+      try{
+        console.log("help TT",seatId)
+        const response = await axios.post(
+          `http://${IP_ADDRESS}:3000/seat/updateSeatStatus/ElecLab/${seatId.seatNumber}`,
+
+        );
+        // console.log(response.data)
+        console.log("error here help",seatId);
+        let sortedSeats=[];
+        sortedSeats = response.data.seats.sort((a, b) => {
+          return a.seatNumber - b.seatNumber;
+        });
+        setSeats(sortedSeats);
+      }catch(err){
+        console.log("error here");
+        console.log("error",err.message)
+      }
+    }
 
   return (
     <View className='w-screen h-screen bg-zinc-50'>
@@ -24,13 +70,13 @@ export default function ElectronicLab() {
       <View className='w-screen h-[90%] flex-row gap-2'>
         <View className='basis-1/3 h-[100%]'>
             <View className='w-[100%] basis-1/3 bg-white border border-gray-300 shadow-sm shadow-black  justify-center'>
-                 <RoundTable/>
+                 <RoundTable seatId={[seats[0],seats[1],seats[2],seats[3]]} handleClick={handleClick}/>
             </View>
             <View className='w-[100%] basis-1/3 bg-white border border-gray-300 shadow-sm shadow-black justify-center'>
-                 <RoundTable/>
+                 <RoundTable seatId={[seats[4],seats[5],seats[6],seats[7]]} handleClick={handleClick}/>
             </View>
             <View className='w-[100%] basis-1/3 bg-white border border-gray-300 shadow-sm shadow-black justify-center'>
-                 <RoundTable/>
+                 <RoundTable seatId={[seats[8],seats[9],seats[10],seats[11]]} handleClick={handleClick}/>
             </View>
        
         </View>
@@ -38,13 +84,13 @@ export default function ElectronicLab() {
         <View className='basis-2/3 h-[100%] justify-center bg-white shadow-lg border border-gray-300 shadow-gray-800'>
             <View className='w-[110%] h-[60%] justify-center items-center rotate-45'>
                 <View className='w-[1.5%] shadow-md  border shadow-black absolute mx-auto h-[50%] bg-gray-800 rotate-45 z-10'></View>
-                <RoundTable/>
+                <RoundTable seatId={[seats[12],seats[13],seats[14],seats[15]]} handleClick={handleClick}/>
                 <View className='w-[1.5%] absolute  border shadow-md  shadow-blue-900 mx-auto h-[50%] bg-gray-800 -rotate-45 z-10'></View>
             </View>
             <View className='w-[110%] h-[60%]  justify-center items-center rotate-45'>
             <View className='w-[1.5%] shadow-md  border shadow-black absolute mx-auto h-[50%] bg-gray-800 rotate-45 z-10'></View>
 
-                <RoundTable/>
+                <RoundTable seatId={[seats[16],seats[17],seats[18],seats[19]]} handleClick={handleClick}/>
                 <View className='w-[1.5%] shadow-md  border shadow-black absolute mx-auto h-[50%] bg-gray-800 -rotate-45 z-10'></View>
 
             </View>
@@ -61,35 +107,22 @@ export default function ElectronicLab() {
   )
 }
 
-const Chair = () => {
-    const [pressed, setPressed] = useState(false);
-  
-    return (
-      <TouchableOpacity
-        onPress={() => setPressed((prev) => !prev)}
-        className={`w-full  aspect-square rounded-full m-auto shadow-2xl shadow-white ${
-          pressed ? "bg-gray-800" : "bg-gray-300"
-        }`}
-      />
-    );
-  };
-
-  const RoundTable=()=>{
+  const RoundTable=({seatId,handleClick})=>{
     return (
         <View className='w-full h-[50%] justify-around items-center z-0'>
-            <View className='w-[16%] self-center'><Chair/></View>
+            <View className='w-[16%] self-center'><Chair seatId={seatId[0]} handleClick={handleClick}/></View>
             <View className='w-[80%] h-[40%] self-center flex-row justify-around items-center'>
                 <View className='w-[20%]'>
 
-                <Chair/>
+                <Chair seatId={seatId[1]} handleClick={handleClick}/>
                 </View>
                 <Image source={require('../../assets/mug.png')} className='w-[30%] aspect-square justify-center'/>
                 <View className='w-[20%]'>
 
-                <Chair/>
+                <Chair seatId={seatId[2]} handleClick={handleClick}/>
                 </View>
             </View>
-            <View className='w-[16%] self-center'><Chair/></View>
+            <View className='w-[16%] self-center'><Chair seatId={seatId[3]} handleClick={handleClick}/></View>
             
         </View>
     )

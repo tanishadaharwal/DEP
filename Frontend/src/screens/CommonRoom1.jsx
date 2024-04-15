@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Chair } from "../component/Chair";
 
 export default function CommonRoom1() {
   const navigation = useNavigation();
@@ -79,16 +80,16 @@ export default function CommonRoom1() {
 }
 
 
-const Chair = () => {
-  const [pressed, setPressed] = useState(false);
+// const Chair = () => {
+//   const [pressed, setPressed] = useState(false);
 
-  return (
-    <TouchableOpacity
-      onPress={() => setPressed((prev) => !prev)}
-      className={`w-full  aspect-square rounded-full m-auto shadow-2xl shadow-white ${
-        pressed ? "bg-gray-800" : "bg-gray-300"
-      }`}
-    />
-  );
-};
+//   return (
+//     <TouchableOpacity
+//       onPress={() => setPressed((prev) => !prev)}
+//       className={`w-full  aspect-square rounded-full m-auto shadow-2xl shadow-white ${
+//         pressed ? "bg-gray-800" : "bg-gray-300"
+//       }`}
+//     />
+//   );
+// };
 
