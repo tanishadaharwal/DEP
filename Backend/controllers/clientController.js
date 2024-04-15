@@ -2,6 +2,7 @@
 const { Client } = require("../models/Client");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const { use } = require("../routes/SeatData");
 
 const JWT_SECRET = "dfgjdfi4564}3^!OK]:f56iuf{sd%*dg%$";
 const transporter = nodemailer.createTransport({
@@ -168,12 +169,20 @@ const setUserSeatStatus = async (req, res) => {
     if (!userData) {
       return res.status(404).json({ error: "User not found" });
     }
-
+    console.log("previosuly",userData.seatStatus)
     userData.seatStatus=!userData.seatStatus;
-    userData.roomOccupied=room;
-    userData.seatOccupied=seatNumber;
+    if(userData.seatStatus){
+      userData.roomOccupied=room;
+      userData.seatOccupied=seatNumber;
+
+    }
+    else{
+      userData.roomOccupied='';
+      userData.seatOccupied=0;
+    }
     console.log("client",userData)
     await userData.save();
+    console.log("status here",userData.seatStatus)
 
 
     // Return the user data

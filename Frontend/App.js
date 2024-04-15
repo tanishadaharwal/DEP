@@ -43,15 +43,17 @@ const LoginNav = () => {
   const AppStack = createNativeStackNavigator();
   return (
     <AppStack.Navigator
+    
       screenOptions={{
         headerShown: false,
+        
       }}
       >
       <AppStack.Screen name="register" component={Register} />
       <AppStack.Screen name="homePage" component={HomePage} />
       <AppStack.Screen name="landingPage" component={LandingPage} />
-      <AppStack.Screen name="permissionPage" component={PermissionPage} />
       <AppStack.Screen name="login" component={Login} />  
+      {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
       <AppStack.Screen name="profilePage" component={ProfilePage} />
@@ -74,8 +76,8 @@ const AppNav = () => {
         headerShown: false,
       }}
     >
+      {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
       <AppStack.Screen name="homePage" component={HomePage} />
-            <AppStack.Screen name="permissionPage" component={PermissionPage} />
 
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />

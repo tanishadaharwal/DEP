@@ -41,7 +41,7 @@ export default function HomePage() {
                 const response = await axios.get(`http://${IP_ADDRESS}:3000/client/get-user-data/${token}`);
                 const { seatStatus, seatOccupied } = response.data;
                 setSeatStatus(seatStatus);
-                setSeatOccupied(seatOccupied);
+                // setSeatOccupied(seatOccupied);
 
 
                 // Log the response

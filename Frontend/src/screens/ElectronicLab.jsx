@@ -23,6 +23,7 @@ export default function ElectronicLab() {
           sortedSeats = response.data.seats.sort((a, b) => {
             return a.seatNumber - b.seatNumber;
           });
+          console.log(sortedSeats);
           setSeats(sortedSeats);
         }catch(err){
           console.log("error",err.message)
@@ -47,6 +48,7 @@ export default function ElectronicLab() {
         });
         setSeats(sortedSeats);
       }catch(err){
+        console.log("error here");
         console.log("error",err.message)
       }
     }
