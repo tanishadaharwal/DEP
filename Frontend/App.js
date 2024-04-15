@@ -29,6 +29,9 @@ export default function App() {
   async function getData() {
     const data = await AsyncStorage.getItem('isLoggedIn');
     console.log("logged in  ? : ", data);
+    if (data === null){
+      data = false;
+    }
     setisLoggedIn(data);
   }
 
