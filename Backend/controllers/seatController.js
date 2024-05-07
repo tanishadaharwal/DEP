@@ -126,8 +126,25 @@ const updateSeatStatus=async(req,res)=>{
   }
 }
 
+const getParticularSeat=async( req,res)=>{
+  try{
+    const seatNumber=req.params.seatOccupied;
+    const room=req.params.roomOccupied;
+    const seat=await Seat.findOne({room:room,seatNumber:seatNumber});
+    if (!seat) {
+      return res.status(404).json({ message: "Seat not found" });
+    }
+    res.status(200).json({message:"Successfully found seat",timer:seat.updatedAt});
+
+  }catch(err){
+    console.log("Error finding timer");
+    res.status(500).json({message:err.message});
+  }
+}
+
 module.exports = {
   getSeatsByRoom,
   createSeat,
-  updateSeatStatus
+  updateSeatStatus,
+  getParticularSeat
 };

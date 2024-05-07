@@ -22,6 +22,7 @@ import ElectronicLab from "./src/screens/ElectronicLab";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from "react";
 import PermissionPage from "./src/screens/PermissionPage";
+import UserProvider from "./AppContext";
 //Importing all screens
 
 
@@ -49,8 +50,8 @@ const LoginNav = () => {
         
       }}
       >
-      <AppStack.Screen name="register" component={Register} />
       <AppStack.Screen name="homePage" component={HomePage} />
+      <AppStack.Screen name="register" component={Register} />
       <AppStack.Screen name="landingPage" component={LandingPage} />
       <AppStack.Screen name="login" component={Login} />  
       {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
@@ -97,9 +98,12 @@ const AppNav = () => {
   );
 }
   return (
+    <UserProvider>
+
     <NavigationContainer>
       {isLoggedIn ? <AppNav/> : <LoginNav/>}
       </NavigationContainer>
+    </UserProvider>
   );
 }
 

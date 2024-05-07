@@ -12,6 +12,7 @@ import Svg, {
 import { Chair } from "../component/Chair";
 
 export default function StudyRoom() {
+  
   const navigation = useNavigation();
   return (
     <View className="w-screen h-screen bg-zinc-100">

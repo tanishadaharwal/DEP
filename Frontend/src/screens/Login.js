@@ -14,11 +14,13 @@ const [email, setEmail] = useState('');
 const [otp, setOtp] = useState(['', '', '', '', '', '']);
 
   
+console.log("ip",IP_ADDRESS)
+console.log("process",process.env);
   const handleSendOtp = async () => {
     console.log("email", email);
-
+    
     try {
-      const response = await axios.post(`http://${IP_ADDRESS}:3000/client/send-otp`, {
+      const response = await axios.post(`http://192.168.1.2:3000/client/send-otp`, {
         email,
         // Assuming isAdmin is initially false for regular users
       });
@@ -45,7 +47,8 @@ const [otp, setOtp] = useState(['', '', '', '', '', '']);
     string_otp = otp.join('');
     console.log("otp : ", string_otp);
     try {
-      const response = await axios.post(`http://${IP_ADDRESS}:3000/client/verify-otp`, {
+      console.log(IP_ADDRESS);
+      const response = await axios.post(`http://192.168.1.2:3000/client/verify-otp`, {
         email, otp : string_otp
         // Assuming isAdmin is initially false for regular users
       });
