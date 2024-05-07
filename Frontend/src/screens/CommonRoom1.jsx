@@ -5,6 +5,31 @@ import { Chair } from "../component/Chair";
 
 export default function CommonRoom1() {
   const navigation = useNavigation();
+  const roomName = "CR - GroundFloor";
+    const [seats, setSeats] = useState([]);
+
+    useEffect(() => {
+      const fetchSeats = async () => {
+          try {
+            const seatsData = await getSeatsByRoom(roomName);
+            console.log(seatsData);
+            setSeats(seatsData);
+          } catch (error) {
+            console.error('Error fetching seats:', error.message);
+          }
+        };
+        fetchSeats();
+    }, []);
+  
+    const handleClick = async (seatId) => {
+      try {
+        const updatedSeats = await updateSeatStatus(roomName, seatId.seatNumber);
+        const sortedSeats = updatedSeats.sort((a, b) => a.seatNumber - b.seatNumber);
+        setSeats(sortedSeats);
+      } catch (error) {
+        console.error('Error updating seat status:', error.message);
+      }
+    };
 
   return (
     <View className="w-screen h-screen bg-zinc-50">
@@ -28,13 +53,13 @@ export default function CommonRoom1() {
           />
           <View className="w-[80%] flex-row justify-around">
             <View className="w-[25%]">
-              <Chair />
+              <Chair seatId={seats[0]} handleClick={handleClick}/>
             </View>
             <View className="w-[25%]">
-              <Chair />
+              <Chair seatId={seats[1]} handleClick={handleClick}/>
             </View>
             <View className="w-[25%]">
-              <Chair />
+              <Chair seatId={seats[2]} handleClick={handleClick}/>
             </View>
           </View>
           <View className="w-screen h-[100%] flex-row rotate-180 justify-center items-center">
@@ -45,13 +70,13 @@ export default function CommonRoom1() {
               />
               <View className="w-[80%] flex-row justify-around">
                 <View className="w-[25%]">
-                  <Chair />
+                  <Chair seatId={seats[3]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[25%]">
-                  <Chair />
+                  <Chair seatId={seats[4]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[25%]">
-                  <Chair />
+                  <Chair seatId={seats[5]} handleClick={handleClick}/>
                 </View>
               </View>
             </View>
@@ -62,13 +87,13 @@ export default function CommonRoom1() {
               />
               <View className="w-[80%] flex-row justify-around">
                 <View className="w-[25%]">
-                  <Chair />
+                  <Chair seatId={seats[6]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[25%]">
-                  <Chair />
+                  <Chair seatId={seats[7]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[25%]">
-                  <Chair />
+                  <Chair seatId={seats[8]} handleClick={handleClick}/>
                 </View>
               </View>
             </View>

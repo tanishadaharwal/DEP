@@ -1,11 +1,37 @@
 import { View, Text,SafeAreaView,Button,Pressable,Image,TouchableOpacity } from 'react-native'
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useNavigation } from "@react-navigation/native";
+import {getSeatsByRoom,updateSeatStatus} from "../api/seatAPI";
+import { Chair } from '../component/Chair';
 
 export default function ReadingRoom() {
 
     const navigation = useNavigation();
-    
+    const roomName = "ReadingRoom";
+  const [seats,setSeats]=useState([]);
+
+  useEffect(() => {
+    const fetchSeats = async () => {
+        try {
+          const seatsData = await getSeatsByRoom(roomName);
+          console.log(seatsData);
+          setSeats(seatsData);
+        } catch (error) {
+          console.error('Error fetching seats:', error.message);
+        }
+      };
+      fetchSeats();
+  }, []);
+
+  const handleClick = async (seatId) => {
+    try {
+      const updatedSeats = await updateSeatStatus(roomName, seatId.seatNumber);
+      const sortedSeats = updatedSeats.sort((a, b) => a.seatNumber - b.seatNumber);
+      setSeats(sortedSeats);
+    } catch (error) {
+      console.error('Error updating seat status:', error.message);
+    }
+  };
 
   return (
     <SafeAreaView className='w-screen h-screen bg-gray-400 m-0 pb-0'>
@@ -19,18 +45,18 @@ export default function ReadingRoom() {
         <View className='flex-row w-full h-[20%] justify-center'>
             {/* {/* <View className='w-[50%] h-full'><Text>Chair</Text></View> */}
             <View className='w-[48%] h-full border-5 m-1 '>
-            <Table n={4}/>
+            <Table n={4} seatId1={[seats[0],seats[1],seats[2],seats[3]]} seatId2={[seats[4],seats[5],seats[6],seats[7]]} handleClick={handleClick}/>
              </View> 
              <View className='w-[48%] h-full border-5 m-1 border-black '>
-            <Table n={4}/>
+            <Table n={4} seatId1={[seats[8],seats[9],seats[10],seats[11]]} seatId2={[seats[12],seats[13],seats[14],seats[15]]} handleClick={handleClick}/>
              </View> 
         </View>
         <View className='flex-row w-full  h-[80%] '>
             <View className='w-[40%] flex-col h-full flex justify-center'>
-                <Table n={2} h={1}/>
-                <Table n={2} h={1}/>
-                <Table n={2} h={1}/>
-                <Table n={2} h={1}/>
+                <Table n={2} h={1} seatId1={[seats[16],seats[17]]} seatId2={[seats[18],seats[19]]} handleClick={handleClick}/>
+                <Table n={2} h={1} seatId1={[seats[20],seats[21]]} seatId2={[seats[22],seats[23]]} handleClick={handleClick}/>
+                <Table n={2} h={1} seatId1={[seats[24],seats[25]]} seatId2={[seats[26],seats[27]]} handleClick={handleClick}/>
+                <Table n={2} h={1} seatId1={[seats[28],seats[29]]} seatId2={[seats[30],seats[31]]} handleClick={handleClick}/>
             </View>
             
             <View className='w-[30%] h-[50%] bg-cyan-900 border-2 border-cyan-500 justify-center self-center rounded-2xl' >
@@ -39,9 +65,9 @@ export default function ReadingRoom() {
             </View>
           
             <View className='w-[40%] flex-col h-full flex justify-center'>
-                    <Table n={2} h={1}/>
-                    <Table n={2} h={1}/>
-                    <Table n={2} h={1}/>
+                    <Table n={2} h={1} seatId1={[seats[32],seats[33]]} seatId2={[seats[34],seats[35]]} handleClick={handleClick}/>
+                    <Table n={2} h={1} seatId1={[seats[36],seats[37]]} seatId2={[seats[38],seats[39]]} handleClick={handleClick}/>
+                    <Table n={2} h={1} seatId1={[seats[40],seats[41]]} seatId2={[seats[42],seats[43]]} handleClick={handleClick}/>
                     
             </View>
           
@@ -57,29 +83,29 @@ export default function ReadingRoom() {
                     <View className='w-[30%] flex-row '>
                         <View className='w-[30%] mx-[3%]'>
 
-                        <Chair/>
+                        <Chair seatId={seats[44]} handleClick={handleClick}/>
                         </View>
                         <View className='w-[30%] mx-[3%]'>
 
-                        <Chair/>
+                        <Chair seatId={seats[45]} handleClick={handleClick}/>
                         </View>
                         <View className='w-[30%] mx-[3%]'>
 
-                        <Chair/>
+                        <Chair seatId={seats[46]} handleClick={handleClick}/>
                         </View>
                     </View>
                     <View className='w-[30%] flex-row'>
                     <View className='w-[30%]  mx-[3%]'>
 
-                        <Chair/>
+                        <Chair seatId={seats[47]} handleClick={handleClick}/>
                         </View>
                         <View className='w-[30%] mx-[3%]'>
 
-                        <Chair/>
+                        <Chair seatId={seats[48]} handleClick={handleClick}/>
                         </View>
                         <View className='w-[30%]  mx-[3%]'>
 
-                        <Chair/>
+                        <Chair seatId={seats[49]} handleClick={handleClick}/>
                         </View>
                     </View>
                 
@@ -96,7 +122,7 @@ export default function ReadingRoom() {
   )
 }
 
-const Table=({n,h})=>{
+const Table=({n,h,seatId1,seatId2,handleClick})=>{
     const arrayToMap = Array.from({ length: n }, (_, index) => index);
 
     return(
@@ -105,7 +131,7 @@ const Table=({n,h})=>{
                 <View className='w-full h-[30%] flex-row m-auto items-center justify-center'>
             {arrayToMap.map((item, index) => (
                 <View className='w-[18%] mx-[3%]' key={index}>
-                    <Chair key={index}/>
+                    <Chair key={index} seatId={seatId1[index]} handleClick={handleClick}/>
                     </View>
                 ))}
                 </View>
@@ -119,7 +145,7 @@ const Table=({n,h})=>{
                 {arrayToMap.map((item, index) => (
                     <View className='w-[18%]  mx-[3%]' key={index}>
 
-                        <Chair />
+                        <Chair seatId={seatId2[index]} handleClick={handleClick}/>
                     </View>
                 ))}
                 </View>
@@ -129,16 +155,16 @@ const Table=({n,h})=>{
     )
 }
 
-const Chair=()=>{
+// const Chair=()=>{
 
-    const [pressed,setPressed]=useState(false)
+//     const [pressed,setPressed]=useState(false)
    
-    return (
-        <TouchableOpacity
-          onPress={() => setPressed((prev) => !prev)}
-          className={`w-full  aspect-square rounded-full m-auto shadow-2xl shadow-white ${
-            pressed ? "bg-gray-800" : "bg-gray-300"
-          }`}
-        />
-      );
-}
+//     return (
+//         <TouchableOpacity
+//           onPress={() => setPressed((prev) => !prev)}
+//           className={`w-full  aspect-square rounded-full m-auto shadow-2xl shadow-white ${
+//             pressed ? "bg-gray-800" : "bg-gray-300"
+//           }`}
+//         />
+//       );
+// }

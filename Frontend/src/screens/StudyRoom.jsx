@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Svg, {
   Path,
@@ -10,10 +10,38 @@ import Svg, {
   Stop,
 } from "react-native-svg";
 import { Chair } from "../component/Chair";
+import {getSeatsByRoom,updateSeatStatus} from "../api/seatAPI";
+
 
 export default function StudyRoom() {
   
   const navigation = useNavigation();
+  const roomName = "StudyRoom";
+  const [seats, setSeats] = useState([]);
+
+    useEffect(() => {
+      const fetchSeats = async () => {
+          try {
+            const seatsData = await getSeatsByRoom(roomName);
+            console.log(seatsData);
+            setSeats(seatsData);
+          } catch (error) {
+            console.error('Error fetching seats:', error.message);
+          }
+        };
+        fetchSeats();
+    }, []);
+  
+    const handleClick = async (seatId) => {
+      try {
+        const updatedSeats = await updateSeatStatus(roomName, seatId.seatNumber);
+        const sortedSeats = updatedSeats.sort((a, b) => a.seatNumber - b.seatNumber);
+        setSeats(sortedSeats);
+      } catch (error) {
+        console.error('Error updating seat status:', error.message);
+      }
+    };
+
   return (
     <View className="w-screen h-screen bg-zinc-100">
       <View className="w-full bg-black h-[10%] items-center p-5 flex-row ">
@@ -38,10 +66,10 @@ export default function StudyRoom() {
             <View className="w-[40%] h-[100%] border rounded-full p-2 bg-white border-gray-300 shadow-sm">
               <View className="flex-row w-[70%] self-center justify-between items-center h-[25%]">
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[0]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[1]} handleClick={handleClick}/>
                 </View>
               </View>
 
@@ -52,10 +80,10 @@ export default function StudyRoom() {
 
               <View className="flex-row w-[70%] self-center justify-between items-center h-[25%]">
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[2]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[3]} handleClick={handleClick}/>
                 </View>
               </View>
             </View>
@@ -63,10 +91,10 @@ export default function StudyRoom() {
             <View className="w-[40%] h-[100%] rounded-full border bg-white p-2 border-gray-300 shadow-sm">
               <View className="flex-row w-[70%] self-center justify-between items-center h-[25%]">
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[4]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[5]} handleClick={handleClick}/>
                 </View>
               </View>
 
@@ -77,10 +105,10 @@ export default function StudyRoom() {
 
               <View className="flex-row w-[70%] self-center justify-between items-center h-[25%]">
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[6]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[7]} handleClick={handleClick}/>
                 </View>
               </View>
             </View>
@@ -141,16 +169,16 @@ export default function StudyRoom() {
           {/* cubicles */}
           <View className="w-[90%] h-[40%] flex-wrap justify-between">
             <View className="w-[50%] h-[50%]">
-              <Cubicle />
+              <Cubicle seatId={[seats[8],seats[9],seats[10],seats[11]]} handleClick={handleClick}/>
             </View>
             <View className="w-[50%] h-[50%]">
-              <Cubicle />
+              <Cubicle seatId={[seats[12],seats[13],seats[14],seats[15]]} handleClick={handleClick}/>
             </View>
             <View className="w-[50%] h-[50%]">
-              <Cubicle />
+              <Cubicle seatId={[seats[16],seats[17],seats[18],seats[19]]} handleClick={handleClick}/>
             </View>
             <View className="w-[50%] h-[50%]">
-              <Cubicle />
+              <Cubicle seatId={[seats[20],seats[21],seats[22],seats[23]]} handleClick={handleClick}/>
             </View>
           </View>
         </View>
@@ -164,10 +192,10 @@ export default function StudyRoom() {
             <View className="h-[45%] bg-white shadow-2xl justify-around shadow-black rounded-md">
               <View className="flex-row w-[90%] justify-around items-center h-[25%]">
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[24]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[25]} handleClick={handleClick}/>
                 </View>
               </View>
               <View className="justify-center items-center h-[50%]">
@@ -186,10 +214,10 @@ export default function StudyRoom() {
               </View>
               <View className="flex-row w-[90%] justify-around items-center h-[25%] ">
                 <View className="w-[30%] ">
-                  <Chair />
+                  <Chair seatId={seats[26]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[27]} handleClick={handleClick}/>
                 </View>
               </View>
             </View>
@@ -197,10 +225,10 @@ export default function StudyRoom() {
             <View className="h-[45%] bg-white shadow-2xl justify-around shadow-black rounded-md py-2">
               <View className="flex-row w-[90%] justify-around items-center h-[25%]">
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[28]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[29]} handleClick={handleClick}/>
                 </View>
               </View>
               <View className="justify-center items-center h-[50%]">
@@ -219,10 +247,10 @@ export default function StudyRoom() {
               </View>
               <View className="flex-row w-[90%] justify-around items-center h-[25%]">
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[30]} handleClick={handleClick}/>
                 </View>
                 <View className="w-[30%]">
-                  <Chair />
+                  <Chair seatId={seats[31]} handleClick={handleClick}/>
                 </View>
               </View>
             </View>
@@ -233,7 +261,7 @@ export default function StudyRoom() {
   );
 }
 
-const Cubicle = () => {
+const Cubicle = ({seatId,handleClick}) => {
   return (
     <View className="w-[100%] h-[100%] flex-wrap">
       <View className="w-[50%] h-[50%] justify-start items-center rotate-90 border border-zinc-300 shadow-sm shadow-black">
@@ -242,7 +270,7 @@ const Cubicle = () => {
           className="w-[100%] h-[50%]"
         />
         <View className="w-[35%] m-1">
-          <Chair />
+          <Chair seatId={seatId[0]} handleClick={handleClick}/>
         </View>
       </View>
       <View className="w-[50%] h-[50%] justify-start  items-center border border-zinc-300 shadow-sm shadow-black">
@@ -251,7 +279,7 @@ const Cubicle = () => {
           className="w-[100%] h-[50%]"
         />
         <View className="w-[35%] m-1">
-          <Chair />
+          <Chair seatId={seatId[1]} handleClick={handleClick}/>
         </View>
       </View>
       <View className="w-[50%] h-[50%] justify-start rotate-180  items-center border-zinc-300 border shadow-sm shadow-black">
@@ -260,7 +288,7 @@ const Cubicle = () => {
           className="w-[100%] h-[50%]"
         />
         <View className="w-[35%] m-1">
-          <Chair />
+          <Chair seatId={seatId[2]} handleClick={handleClick}/>
         </View>
       </View>
       <View className="w-[50%] h-[50%] justify-start -rotate-90 items-center border border-zinc-300 shadow-sm shadow-black">
@@ -269,7 +297,7 @@ const Cubicle = () => {
           className="w-[100%] h-[50%]"
         />
         <View className="w-[35%] m-1">
-          <Chair />
+          <Chair seatId={seatId[3]} handleClick={handleClick}/>
         </View>
       </View>
     </View>

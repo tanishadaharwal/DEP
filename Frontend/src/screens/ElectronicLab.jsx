@@ -4,55 +4,36 @@ import { useNavigation } from '@react-navigation/native'
 import { Chair } from '../component/Chair'
 import axios from 'axios'
 import {IP_ADDRESS} from '@env'
+import {getSeatsByRoom,updateSeatStatus} from "../api/seatAPI";
 
 export default function ElectronicLab() {
 
     const navigation=useNavigation()
-
+    const roomName = "ElecLab";
     const [seats, setSeats] = useState([]);
 
     useEffect(() => {
-      const getSeatsStatus = async () => {
-        
-        try{
-          const response = await axios.get(
-            `http://${IP_ADDRESS}:3000/seat/getSeatsByRoom/ElecLab`,
-
-          );
-          // console.log(response.data)
-          let sortedSeats=[];
-          sortedSeats = response.data.seats.sort((a, b) => {
-            return a.seatNumber - b.seatNumber;
-          });
-          console.log(sortedSeats);
-          setSeats(sortedSeats);
-        }catch(err){
-          console.log("error",err.message)
-        }
-
-        }
-      getSeatsStatus();
-    },[]);
-
-    const handleClick=async(seatId)=>{
-      try{
-        console.log("help TT",seatId)
-        const response = await axios.post(
-          `http://${IP_ADDRESS}:3000/seat/updateSeatStatus/ElecLab/${seatId.seatNumber}`,
-
-        );
-        // console.log(response.data)
-        console.log("error here help",seatId);
-        let sortedSeats=[];
-        sortedSeats = response.data.seats.sort((a, b) => {
-          return a.seatNumber - b.seatNumber;
-        });
+      const fetchSeats = async () => {
+          try {
+            const seatsData = await getSeatsByRoom(roomName);
+            console.log(seatsData);
+            setSeats(seatsData);
+          } catch (error) {
+            console.error('Error fetching seats:', error.message);
+          }
+        };
+        fetchSeats();
+    }, []);
+  
+    const handleClick = async (seatId) => {
+      try {
+        const updatedSeats = await updateSeatStatus(roomName, seatId.seatNumber);
+        const sortedSeats = updatedSeats.sort((a, b) => a.seatNumber - b.seatNumber);
         setSeats(sortedSeats);
-      }catch(err){
-        console.log("error here");
-        console.log("error",err.message)
+      } catch (error) {
+        console.error('Error updating seat status:', error.message);
       }
-    }
+    };
 
   return (
     <View className='w-screen h-screen bg-zinc-50'>
