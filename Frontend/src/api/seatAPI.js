@@ -2,6 +2,7 @@ import axios from 'axios';
 import { IP_ADDRESS } from "@env";
 
 export const getSeatsByRoom = async (roomName) => {
+  console.log("op",IP_ADDRESS);
   try {
     const response = await axios.get(`http://${IP_ADDRESS}:3000/seat/getSeatsByRoom/${roomName}`);
     let sortedSeats=[];

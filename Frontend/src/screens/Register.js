@@ -26,9 +26,9 @@ export default function Register() {
         email,
         isAdmin: false, // Assuming isAdmin is initially false for regular users
       });
-      console.log(response.data);
       
       if (response.status == 201) {
+        console.log(response.data);
         Alert.alert('Registration Successful', 'Thank you for registering!');
         setTimeout(() => {
           navigation.navigate("login");
