@@ -65,7 +65,6 @@ const LoginNav = () => {
       
     >
       <AppStack.Screen name="homePage" component={HomePage} />
-       <AppStack.Screen name="landingPage" component={LandingPage} />
       <AppStack.Screen name="AdminProfile" component={AdminProfile} />
       <AppStack.Screen name="userpage" component={userpage} />
       <AppStack.Screen name="notification" component={notification} />
@@ -74,11 +73,7 @@ const LoginNav = () => {
       <AppStack.Screen name="ViewProfilePage" component={ViewProfilePage} />
       <AppStack.Screen name="bookManagementPage" component={bookManagementPage} />
       
-      <AppStack.Screen name="register" component={Register} />
- 
       
-
-      <AppStack.Screen name="homePage" component={HomePage} />
       <AppStack.Screen name="register" component={Register} />
       <AppStack.Screen name="landingPage" component={LandingPage} />
       <AppStack.Screen name="login" component={Login} />  
@@ -110,7 +105,7 @@ const AppNav = () => {
       <AppStack.Screen name="userpage" component={userpage} />
       <AppStack.Screen name="ViewProfilePage" component={ViewProfilePage} />
       <AppStack.Screen name="notification" component={notification} />
-      <AppStack.Screen name="homePage" component={HomePage} />
+      
       <AppStack.Screen name="queryForm" component={QueryForm} />
       <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
 
