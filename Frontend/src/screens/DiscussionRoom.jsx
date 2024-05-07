@@ -13,7 +13,7 @@ export default function DiscussionRoom() {
     const fetchSeats = async () => {
         try {
           const seatsData = await getSeatsByRoom(roomName);
-          console.log(seatsData);
+          // console.log(seatsData);
           setSeats(seatsData);
         } catch (error) {
           console.error('Error fetching seats:', error.message);
