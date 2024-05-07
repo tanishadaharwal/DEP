@@ -17,7 +17,7 @@ const [otp, setOtp] = useState(['', '', '', '', '', '']);
     console.log("email", email);
 
     try {
-      const response = await axios.post('http://192.168.43.120:3000/client/send-otp', {
+      const response = await axios.post('http://192.168.137.1:3000/client/send-otp', {
         email,
         // Assuming isAdmin is initially false for regular users
       });
@@ -43,7 +43,7 @@ const [otp, setOtp] = useState(['', '', '', '', '', '']);
     string_otp = otp.join('');
     console.log("otp : ", string_otp);
     try {
-      const response = await axios.post('http://192.168.43.120:3000/client/verify-otp', {
+      const response = await axios.post('http://192.168.137.1:3000/client/verify-otp', {
         email, otp : string_otp
         // Assuming isAdmin is initially false for regular users
       });
