@@ -21,13 +21,19 @@ import HomePage from "./src/screens/HomePage";
 import ElectronicLab from "./src/screens/ElectronicLab";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from "react";
+
 import notification from './src/screens/notification';
 import userpage from './src/screens/userpage';
 import bookManagementPage from './src/screens/bookManagementPage';
 import ViewProfilePage from './src/screens/ViewProfilePage';
 import NotificationDetailScreen from './src/screens/NotificationDetailScreen';
 import AdminProfile from "./src/screens/AdminProfile";
+
+import PermissionPage from "./src/screens/PermissionPage";
+import UserProvider from "./AppContext";
+
 //Importing all screens
+
 
 export default function App() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
@@ -35,6 +41,9 @@ export default function App() {
   async function getData() {
     const data = await AsyncStorage.getItem('isLoggedIn');
     console.log("logged in  ? : ", data);
+    if (data === null){
+      data = false;
+    }
     setisLoggedIn(data);
   }
 
@@ -47,9 +56,12 @@ const LoginNav = () => {
   const AppStack = createNativeStackNavigator();
   return (
     <AppStack.Navigator
+    
       screenOptions={{
         headerShown: false,
+        
       }}
+
       
     >
       <AppStack.Screen name="homePage" component={HomePage} />
@@ -61,10 +73,17 @@ const LoginNav = () => {
       
       <AppStack.Screen name="ViewProfilePage" component={ViewProfilePage} />
       <AppStack.Screen name="bookManagementPage" component={bookManagementPage} />
-      <AppStack.Screen name="login" component={Login} /> 
+      
       <AppStack.Screen name="register" component={Register} />
  
       
+
+      <AppStack.Screen name="homePage" component={HomePage} />
+      <AppStack.Screen name="register" component={Register} />
+      <AppStack.Screen name="landingPage" component={LandingPage} />
+      <AppStack.Screen name="login" component={Login} />  
+      {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
+
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
       <AppStack.Screen name="profilePage" component={ProfilePage} />
@@ -94,7 +113,11 @@ const AppNav = () => {
       <AppStack.Screen name="homePage" component={HomePage} />
       <AppStack.Screen name="queryForm" component={QueryForm} />
       <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
+
+      {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
+
       <AppStack.Screen name="homePage" component={HomePage} />
+
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
       <AppStack.Screen name="profilePage" component={ProfilePage} />
@@ -113,9 +136,12 @@ const AppNav = () => {
   );
 }
   return (
+    <UserProvider>
+
     <NavigationContainer>
       {isLoggedIn ? <AppNav/> : <LoginNav/>}
       </NavigationContainer>
+    </UserProvider>
   );
 }
 

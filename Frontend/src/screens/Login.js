@@ -7,20 +7,28 @@ import AuthAnimation from '../component/AuthAnimation';
 import axios from "axios"
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {IP_ADDRESS} from "@env"
 export default function Login() {
 const navigation = useNavigation();
 const [email, setEmail] = useState('');
 const [otp, setOtp] = useState(['', '', '', '', '', '']);
 
   
+console.log("ip",IP_ADDRESS)
+console.log("process",process.env);
   const handleSendOtp = async () => {
     console.log("email", email);
-
+    
     try {
+<<<<<<< HEAD
       const response = await axios.post('http://192.168.137.1:3000/client/send-otp', {
+=======
+      const response = await axios.post(`http://192.168.1.2:3000/client/send-otp`, {
+>>>>>>> 429e698b2eec53ef521ea032d33dbe88e901f238
         email,
         // Assuming isAdmin is initially false for regular users
       });
+      console.log("check");
       console.log(response.status);
       
       if (response.status === 200) {
@@ -43,7 +51,12 @@ const [otp, setOtp] = useState(['', '', '', '', '', '']);
     string_otp = otp.join('');
     console.log("otp : ", string_otp);
     try {
+<<<<<<< HEAD
       const response = await axios.post('http://192.168.137.1:3000/client/verify-otp', {
+=======
+      console.log(IP_ADDRESS);
+      const response = await axios.post(`http://192.168.1.2:3000/client/verify-otp`, {
+>>>>>>> 429e698b2eec53ef521ea032d33dbe88e901f238
         email, otp : string_otp
         // Assuming isAdmin is initially false for regular users
       });

@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SvgLost from '../../Lost.js';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import {IP_ADDRESS} from '@env'
 
 const LostAndFound = () => {
   const [image, setImage] = useState(null);
@@ -39,7 +39,7 @@ const LostAndFound = () => {
       const token = await AsyncStorage.getItem("token");
       console.log("tokenn : ", token);
       // Send the query data to the server
-      const response = await axios.post('http://172.21.69.42:3000/form/send-lf-query', {
+      const response = await axios.post(`http://${IP_ADDRESS}:3000/form/send-lf-query`, {
         image: image,
         description: description,
         location: location,

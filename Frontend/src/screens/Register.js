@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
 import AuthAnimation from "../component/AuthAnimation";
 import { useNavigation } from "@react-navigation/native";
+import {IP_ADDRESS} from '@env'
+
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,17 +21,21 @@ export default function Register() {
     console.log("email", email);
 
     try {
+<<<<<<< HEAD
       const response = await axios.post('http://192.168.137.1:3000/client/create-client', {
+=======
+      const response = await axios.post(`http://${IP_ADDRESS}:3000/client/create-client`, {
+>>>>>>> 429e698b2eec53ef521ea032d33dbe88e901f238
         name,
         email,
         isAdmin: false, // Assuming isAdmin is initially false for regular users
       });
-      console.log(response.data);
       
       if (response.status == 201) {
+        console.log(response.data);
         Alert.alert('Registration Successful', 'Thank you for registering!');
         setTimeout(() => {
-          navigation.navigate("homePage");
+          navigation.navigate("login");
         }, 2000); 
        
       } else {
