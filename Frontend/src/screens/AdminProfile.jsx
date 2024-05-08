@@ -1,10 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Import Ionicons for icons
 
 const AdminProfile = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView className="mt-24 h-full">
+    <Text className="text-3xl mx-auto mb-48">Welcome, Admin !</Text>
+
+    <View style={styles.container} >
+      
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('userpage')}
@@ -12,28 +16,29 @@ const AdminProfile = ({ navigation }) => {
         <Ionicons name="people" size={24} color="black" />
         <Text style={styles.buttonText}>User Management</Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('bookManagementPage')}
       >
         <Ionicons name="book" size={24} color="black" />
         <Text style={styles.buttonText}>Book Management</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('notification')}
       >
         <Ionicons name="notifications" size={24} color="black" />
-        <Text style={styles.buttonText}>Notification</Text>
+        <Text style={styles.buttonText}>Your Notifications</Text>
       </TouchableOpacity>
     </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: '',
     alignItems: 'center',
   },
   button: {
@@ -41,7 +46,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
     padding: 10,
-    marginVertical: 5,
+    marginVertical: 10,
     borderRadius: 5,
   },
   buttonText: {

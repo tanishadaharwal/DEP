@@ -97,12 +97,14 @@ const Notification = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1, paddingTop: 40 }}>
-            <View style={{ padding: 10 }}>
+            <Text className="text-lg font-bold ml-4 mt-1 mb-2">Your Notifications</Text>
+            <View style={{ padding: 10 }} className="px-6">
                 <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 2, paddingLeft: 5 }}
+                    style={{ height: 40, borderColor: 'gray', borderWidth: 1, paddingLeft: 5 }}
                     placeholder="Search..."
                     onChangeText={handleSearch}
                     value={searchText}
+                    className="rounded-xl"
                 />
             </View>
             <SwipeListView
@@ -112,6 +114,7 @@ const Notification = ({ navigation }) => {
                 renderHiddenItem={renderHiddenItem}
                 rightOpenValue={-75}
                 disableRightSwipe={true}
+                className="px-6 rounded-lg"
             />
         </View>
     );

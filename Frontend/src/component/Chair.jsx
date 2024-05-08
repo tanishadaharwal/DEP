@@ -96,6 +96,7 @@ export const Chair = ({ seatId, handleClick }) => {
       // Get the token from AsyncStorage
       const token = await AsyncStorage.getItem("token");
       console.log("called");
+      
       // Make the API request to get user data using the token
       const response = await axios.post(
         `http://${IP_ADDRESS}:3000/client/setUserSeatStatus/${token}/${seatId.room}/${seatId.seatNumber}`

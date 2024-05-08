@@ -20,7 +20,7 @@ console.log("process",process.env);
     console.log("email", email);
     
     try {
-      const response = await axios.post(`http://${IP_ADDRESS}/client/send-otp`, {
+      const response = await axios.post(`http://${IP_ADDRESS}:3000/client/send-otp`, {
         email,
         // Assuming isAdmin is initially false for regular users
       });
@@ -48,7 +48,7 @@ console.log("process",process.env);
     console.log("otp : ", string_otp);
     try {
       console.log(IP_ADDRESS);
-      const response = await axios.post(`http://${IP_ADDRESS}/client/verify-otp`, {
+      const response = await axios.post(`http://${IP_ADDRESS}:3000/client/verify-otp`, {
         email, otp : string_otp
         // Assuming isAdmin is initially false for regular users
       });
@@ -59,6 +59,11 @@ console.log("process",process.env);
         const token = await AsyncStorage.setItem("token", response.data.data);
         const isLoggedIn = await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
         console.log(isLoggedIn);
+        if(email == "dep2k24@gmail.com"){
+          setTimeout(() => {
+            navigation.navigate("AdminProfile");
+          }, 1000); 
+        }
         setTimeout(() => {
           navigation.navigate("homePage");
         }, 1000); 

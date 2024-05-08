@@ -23,7 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from "react";
 
 import notification from './src/screens/notification';
-import userpage from './src/screens/userpage';
+import Userpage from './src/screens/userpage';
 import bookManagementPage from './src/screens/bookManagementPage';
 import ViewProfilePage from './src/screens/ViewProfilePage';
 import NotificationDetailScreen from './src/screens/NotificationDetailScreen';
@@ -64,9 +64,11 @@ const LoginNav = () => {
 
       
     >
+      <AppStack.Screen name="register" component={Register} />
+      <AppStack.Screen name="login" component={Login} />
       <AppStack.Screen name="homePage" component={HomePage} />
       <AppStack.Screen name="AdminProfile" component={AdminProfile} />
-      <AppStack.Screen name="userpage" component={userpage} />
+      <AppStack.Screen name="userpage" component={Userpage} />
       <AppStack.Screen name="notification" component={notification} />
       <AppStack.Screen name="NotificationDetailScreen" component={NotificationDetailScreen} />
       
@@ -74,9 +76,9 @@ const LoginNav = () => {
       <AppStack.Screen name="bookManagementPage" component={bookManagementPage} />
       
       
-      <AppStack.Screen name="register" component={Register} />
+     
       <AppStack.Screen name="landingPage" component={LandingPage} />
-      <AppStack.Screen name="login" component={Login} />  
+        
       {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
 
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
@@ -102,13 +104,18 @@ const AppNav = () => {
         headerShown: false,
       }}
     >
-      <AppStack.Screen name="userpage" component={userpage} />
-      <AppStack.Screen name="ViewProfilePage" component={ViewProfilePage} />
+      <AppStack.Screen name="AdminProfile" component={AdminProfile} />
+      <AppStack.Screen name="userpage" component={Userpage} />
       <AppStack.Screen name="notification" component={notification} />
+      <AppStack.Screen name="NotificationDetailScreen" component={NotificationDetailScreen} />
+      
+      <AppStack.Screen name="ViewProfilePage" component={ViewProfilePage} />
+      <AppStack.Screen name="bookManagementPage" component={bookManagementPage} />
+      
+   
       
       <AppStack.Screen name="queryForm" component={QueryForm} />
       <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
-
       {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
 
       <AppStack.Screen name="homePage" component={HomePage} />

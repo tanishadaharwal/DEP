@@ -22,7 +22,7 @@ export default function Register() {
 
     try {
 
-      const response = await axios.post('http://192.168.137.1:3000/client/create-client', {
+      const response = await axios.post(`http://${IP_ADDRESS}:3000/client/create-client`, {
 
         name,
         email,
@@ -87,10 +87,17 @@ export default function Register() {
           />
 
           <TouchableOpacity
-            className="bg-[#407bff] py-3 rounded-md items-center mt-6"
+            className="bg-[#407bff] py-2 rounded-md items-center mt-4"
             onPress={handleRegister}
           >
-            <Text className="text-white font-semibold text-lg">Register</Text>
+            <Text className="text-white font-semibold text-sm">Register</Text>
+          </TouchableOpacity>
+          <Text className="mt-4">Already have an account ?</Text>
+          <TouchableOpacity
+            className="bg-[#407bff] py-2 rounded-md items-center mt-4"
+            onPress={() => navigation.navigate("login")}
+          >
+            <Text className="text-white font-semibold text-sm">Login</Text>
           </TouchableOpacity>
         </View>
       </View>
