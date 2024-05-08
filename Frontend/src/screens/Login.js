@@ -20,7 +20,7 @@ console.log("process",process.env);
     console.log("email", email);
     
     try {
-      const response = await axios.post(`http://192.168.1.2:3000/client/send-otp`, {
+      const response = await axios.post(`http://${IP_ADDRESS}/client/send-otp`, {
         email,
         // Assuming isAdmin is initially false for regular users
       });
@@ -48,7 +48,7 @@ console.log("process",process.env);
     console.log("otp : ", string_otp);
     try {
       console.log(IP_ADDRESS);
-      const response = await axios.post(`http://192.168.1.2:3000/client/verify-otp`, {
+      const response = await axios.post(`http://${IP_ADDRESS}/client/verify-otp`, {
         email, otp : string_otp
         // Assuming isAdmin is initially false for regular users
       });
