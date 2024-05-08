@@ -21,8 +21,17 @@ import HomePage from "./src/screens/HomePage";
 import ElectronicLab from "./src/screens/ElectronicLab";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState, useEffect } from "react";
+
+import notification from './src/screens/notification';
+import userpage from './src/screens/userpage';
+import bookManagementPage from './src/screens/bookManagementPage';
+import ViewProfilePage from './src/screens/ViewProfilePage';
+import NotificationDetailScreen from './src/screens/NotificationDetailScreen';
+import AdminProfile from "./src/screens/AdminProfile";
+
 import PermissionPage from "./src/screens/PermissionPage";
 import UserProvider from "./AppContext";
+
 //Importing all screens
 
 
@@ -52,12 +61,24 @@ const LoginNav = () => {
         headerShown: false,
         
       }}
-      >
+
+      
+    >
       <AppStack.Screen name="homePage" component={HomePage} />
+      <AppStack.Screen name="AdminProfile" component={AdminProfile} />
+      <AppStack.Screen name="userpage" component={userpage} />
+      <AppStack.Screen name="notification" component={notification} />
+      <AppStack.Screen name="NotificationDetailScreen" component={NotificationDetailScreen} />
+      
+      <AppStack.Screen name="ViewProfilePage" component={ViewProfilePage} />
+      <AppStack.Screen name="bookManagementPage" component={bookManagementPage} />
+      
+      
       <AppStack.Screen name="register" component={Register} />
       <AppStack.Screen name="landingPage" component={LandingPage} />
       <AppStack.Screen name="login" component={Login} />  
       {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
+
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
       <AppStack.Screen name="discussionRoom" component={DiscussionRoom} />
       <AppStack.Screen name="profilePage" component={ProfilePage} />
@@ -69,6 +90,7 @@ const LoginNav = () => {
       <AppStack.Screen name="readingRoom" component={ReadingRoom} />
       
       <AppStack.Screen name="electronicLab" component={ElectronicLab} />
+      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
     </AppStack.Navigator>
   );
 }
@@ -80,7 +102,15 @@ const AppNav = () => {
         headerShown: false,
       }}
     >
+      <AppStack.Screen name="userpage" component={userpage} />
+      <AppStack.Screen name="ViewProfilePage" component={ViewProfilePage} />
+      <AppStack.Screen name="notification" component={notification} />
+      
+      <AppStack.Screen name="queryForm" component={QueryForm} />
+      <AppStack.Screen name="lostFoundForm" component={LostAndFound} />
+
       {/* <AppStack.Screen name="permissionPage" component={PermissionPage} /> */}
+
       <AppStack.Screen name="homePage" component={HomePage} />
 
       <AppStack.Screen name="studyRoom" component={StudyRoom} />
